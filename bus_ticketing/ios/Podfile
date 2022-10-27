@@ -12,6 +12,8 @@ target 'bus_ticketing' do
     :hermes_enabled => false
   )
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'bus_ticketingTests' do
     inherit! :complete
     # Pods for testing
