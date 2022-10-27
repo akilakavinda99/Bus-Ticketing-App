@@ -1,13 +1,17 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
 import {Button, ProgressBar} from 'react-native-paper';
 import DropDown from 'react-native-paper-dropdown';
 import IntialComponent from '../components/initialComponent/IntialComponent';
+import NoResults from '../components/noResults/NoResults';
 import endLocationList from '../constants/endLocation.constants';
 import startLocationList from '../constants/location.constants';
 import bookNowScreenStyle from './styles/BookNowScreenStyles';
 
 const BookNowScreen = () => {
+  const navigation = useNavigation();
+
   const [showEndDropDown, setShowEndDropDown] = useState(false);
   const [showStartDropDown, setShowStartDropDown] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -20,6 +24,7 @@ const BookNowScreen = () => {
   const search = () => {
     setInitial(false);
     setLoading(true);
+    navigation.navigate('Payment');
   };
 
   return (
@@ -70,9 +75,11 @@ const BookNowScreen = () => {
         {initial ? (
           <IntialComponent />
         ) : loading ? (
-          <ActivityIndicator />
+          <View style={bookNowScreenStyle.activityStyle}>
+            <ActivityIndicator size="large" />
+          </View>
         ) : availableBuses == 0 ? (
-          <Text>No results</Text>
+          <NoResults />
         ) : (
           <Text>Buses</Text>
         )}

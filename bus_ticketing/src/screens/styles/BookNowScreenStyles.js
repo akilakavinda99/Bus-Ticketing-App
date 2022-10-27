@@ -15,6 +15,9 @@ const bookNowScreenStyle = StyleSheet.create({
     height: '100%',
     backgroundColor: 'white',
   },
+  activityStyle: {
+    marginTop: 120,
+  },
 });
 
 export default bookNowScreenStyle;
