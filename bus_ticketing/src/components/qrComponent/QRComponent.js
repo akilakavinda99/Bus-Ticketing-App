@@ -5,7 +5,7 @@ const QRComponent = ({value, getRef}) => {
   return (
     <QRCode
       value={value}
-      size={250}
+      size={100}
       color="black"
       backgroundColor="white"
       getRef={getRef}

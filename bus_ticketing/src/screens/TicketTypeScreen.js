@@ -11,7 +11,7 @@ const TicketTypeScreen = () => {
 
   const navigateToTicketType = () => {
     if (checked === 'ticket') {
-      navigation.navigate('TicketType');
+      navigation.navigate('TicketScreen');
     } else {
       navigation.navigate('QR');
     }

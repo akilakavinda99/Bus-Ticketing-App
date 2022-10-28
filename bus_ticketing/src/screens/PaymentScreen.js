@@ -13,6 +13,10 @@ const PaymentScreen = () => {
     // navigation.navigate('QR');
     navigation.navigate('TicketType');
   };
+  const navigateToMAp = () => {
+    // navigation.navigate('QR');
+    navigation.navigate('MapScreen');
+  };
   return (
     <View style={paymentScreenStyle.mainView}>
       <View style={paymentScreenStyle.imageView}>
@@ -88,6 +92,12 @@ const PaymentScreen = () => {
         style={paymentScreenStyle.proceedBtn}
         onPress={navigateToTicketType}>
         Proceed
+      </Button>
+      <Button
+        mode="contained"
+        // style={paymentScreenStyle.proceedBtn}
+        onPress={navigateToMAp}>
+        Map
       </Button>
     </View>
   );

@@ -14,9 +14,11 @@ import BookNowScreen from './src/screens/BookNowScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import LocalRegisterScreen from './src/screens/LocalRegisterScreen';
 import LoginScreen from './src/screens/LoginScreen';
+import MapDirectionScreen from './src/screens/MapDirectionScreen';
 import PaymentScreen from './src/screens/PaymentScreen';
 import QRScreen from './src/screens/QRScreen';
 import RegisterationTypeScreen from './src/screens/RegisterationTypeScreen';
+import TicketScreen from './src/screens/TicketScreen';
 import TicketTypeScreen from './src/screens/TicketTypeScreen';
 
 const App = () => {
@@ -74,6 +76,20 @@ const App = () => {
           component={TicketTypeScreen}
           options={{
             title: 'Select your ticket type',
+          }}
+        />
+        <Stack.Screen
+          name="TicketScreen"
+          component={TicketScreen}
+          options={{
+            title: 'Ticket View',
+          }}
+        />
+        <Stack.Screen
+          name="MapScreen"
+          component={MapDirectionScreen}
+          options={{
+            title: 'Map View',
           }}
         />
       </Stack.Navigator>
