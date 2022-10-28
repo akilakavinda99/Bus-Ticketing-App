@@ -10,6 +10,10 @@ const LoginScreen = () => {
     navigation.navigate('RegisterType');
   };
 
+  const login = () => {
+    navigation.navigate('Home');
+  };
+
   const [checked, setChecked] = React.useState(false);
   return (
     <View style={loginStyle.mainView}>
@@ -49,7 +53,11 @@ const LoginScreen = () => {
           />
           <Text style={loginStyle.chckboxText}>Remember me</Text>
         </View>
-        <Button mode="contained" style={loginStyle.loginButton} color="#0096FF">
+        <Button
+          mode="contained"
+          style={loginStyle.loginButton}
+          color="#0096FF"
+          onPress={login}>
           Login
         </Button>
         <Text style={loginStyle.forgotPw}>Forgot Password?</Text>

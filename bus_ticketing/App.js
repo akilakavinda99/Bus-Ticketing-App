@@ -10,9 +10,16 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import BookNowScreen from './src/screens/BookNowScreen';
+import HomeScreen from './src/screens/HomeScreen';
 import LocalRegisterScreen from './src/screens/LocalRegisterScreen';
 import LoginScreen from './src/screens/LoginScreen';
+import MapDirectionScreen from './src/screens/MapDirectionScreen';
+import PaymentScreen from './src/screens/PaymentScreen';
+import QRScreen from './src/screens/QRScreen';
 import RegisterationTypeScreen from './src/screens/RegisterationTypeScreen';
+import TicketScreen from './src/screens/TicketScreen';
+import TicketTypeScreen from './src/screens/TicketTypeScreen';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -29,10 +36,60 @@ const App = () => {
         />
         <Stack.Screen name="RegisterType" component={RegisterationTypeScreen} />
         <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
           name="LocalRegister"
           component={LocalRegisterScreen}
           options={{
             title: 'Local User Registertion',
+          }}
+        />
+        <Stack.Screen
+          name="BookNow"
+          component={BookNowScreen}
+          options={{
+            title: 'Book Your Ticket Now',
+          }}
+        />
+        <Stack.Screen
+          name="Payment"
+          component={PaymentScreen}
+          options={{
+            title: 'Payment Method',
+          }}
+        />
+        <Stack.Screen
+          name="QR"
+          component={QRScreen}
+          options={{
+            title: 'QR',
+          }}
+        />
+        <Stack.Screen
+          name="TicketType"
+          component={TicketTypeScreen}
+          options={{
+            title: 'Select your ticket type',
+          }}
+        />
+        <Stack.Screen
+          name="TicketScreen"
+          component={TicketScreen}
+          options={{
+            title: 'Ticket View',
+          }}
+        />
+        <Stack.Screen
+          name="MapScreen"
+          component={MapDirectionScreen}
+          options={{
+            title: 'Map View',
           }}
         />
       </Stack.Navigator>
