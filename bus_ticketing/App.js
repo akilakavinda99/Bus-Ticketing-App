@@ -15,7 +15,9 @@ import HomeScreen from './src/screens/HomeScreen';
 import LocalRegisterScreen from './src/screens/LocalRegisterScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import PaymentScreen from './src/screens/PaymentScreen';
+import QRScreen from './src/screens/QRScreen';
 import RegisterationTypeScreen from './src/screens/RegisterationTypeScreen';
+import TicketTypeScreen from './src/screens/TicketTypeScreen';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -58,6 +60,20 @@ const App = () => {
           component={PaymentScreen}
           options={{
             title: 'Payment Method',
+          }}
+        />
+        <Stack.Screen
+          name="QR"
+          component={QRScreen}
+          options={{
+            title: 'QR',
+          }}
+        />
+        <Stack.Screen
+          name="TicketType"
+          component={TicketTypeScreen}
+          options={{
+            title: 'Select your ticket type',
           }}
         />
       </Stack.Navigator>

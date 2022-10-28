@@ -3,32 +3,38 @@ import React from 'react';
 import {Image, Text, View} from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
 import {Button, RadioButton} from 'react-native-paper';
-import paymentScreenStyle from './styles/PaymentStyles';
+import ticketTypeScreenStyle from './styles/TicketTypeStyles';
 
-const PaymentScreen = () => {
-  const [checked, setChecked] = React.useState('credit');
+const TicketTypeScreen = () => {
+  const [checked, setChecked] = React.useState('ticket');
   const navigation = useNavigation();
 
   const navigateToTicketType = () => {
+    if (checked === 'ticket') {
+      navigation.navigate('TicketType');
+    } else {
+      navigation.navigate('QR');
+    }
+
     // navigation.navigate('QR');
-    navigation.navigate('TicketType');
   };
+
   return (
-    <View style={paymentScreenStyle.mainView}>
-      <View style={paymentScreenStyle.imageView}>
+    <View style={ticketTypeScreenStyle.mainView}>
+      <View style={ticketTypeScreenStyle.imageView}>
         {
           // Change the image according to the selected payment type.
-          checked === 'credit' ? (
+          checked === 'ticket' ? (
             <Image
               source={{
-                uri: 'https://i.postimg.cc/wMRTB8q4/99455-credit-card.gif',
+                uri: 'https://i.postimg.cc/mgrVjGC8/107295-ticket-query-on-1.gif',
               }}
-              style={paymentScreenStyle.image}
+              style={ticketTypeScreenStyle.image}
             />
           ) : (
             <Image
               source={{
-                uri: 'https://i.postimg.cc/MG5MQSy9/96570-payments-app-hero.gif',
+                uri: 'https://i.postimg.cc/Wz9GdXSX/70533-qr-code.gif',
               }}
               style={{
                 marginTop: 20,
@@ -50,14 +56,16 @@ const PaymentScreen = () => {
             shadowOpacity: 0.5,
             shadowRadius: 5,
           }}>
-          <View style={paymentScreenStyle.rowView}>
+          <View style={ticketTypeScreenStyle.rowView}>
             <Button icon="credit-card" />
 
-            <Text style={paymentScreenStyle.creditText}>Credit/Debit Card</Text>
+            <Text style={ticketTypeScreenStyle.creditText}>
+              Credit/Debit Card
+            </Text>
             <RadioButton
-              value="Card"
-              status={checked === 'credit' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked('credit')}
+              value="ticket"
+              status={checked === 'ticket' ? 'checked' : 'unchecked'}
+              onPress={() => setChecked('ticket')}
             />
           </View>
         </DropShadow>
@@ -71,21 +79,21 @@ const PaymentScreen = () => {
             shadowOpacity: 0.5,
             shadowRadius: 5,
           }}>
-          <View style={paymentScreenStyle.rowView}>
+          <View style={ticketTypeScreenStyle.rowView}>
             <Button icon="account" />
 
-            <Text style={paymentScreenStyle.creditText2}> Account</Text>
+            <Text style={ticketTypeScreenStyle.creditText2}> Account</Text>
             <RadioButton
-              value="Account"
-              status={checked === 'Account' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked('Account')}
+              value="qr"
+              status={checked === 'qr' ? 'checked' : 'unchecked'}
+              onPress={() => setChecked('qr')}
             />
           </View>
         </DropShadow>
       </View>
       <Button
         mode="contained"
-        style={paymentScreenStyle.proceedBtn}
+        style={ticketTypeScreenStyle.proceedBtn}
         onPress={navigateToTicketType}>
         Proceed
       </Button>
@@ -93,4 +101,4 @@ const PaymentScreen = () => {
   );
 };
 
-export default PaymentScreen;
+export default TicketTypeScreen;
