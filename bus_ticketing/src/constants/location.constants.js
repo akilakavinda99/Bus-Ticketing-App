@@ -1,11 +1,15 @@
 const startLocationList = [
   {
-    label: 'Galle',
-    value: 'Galle',
+    label: 'Kalutara',
+    value: 'Kalutara',
   },
   {
     label: 'Matara',
     value: 'Matara',
+  },
+  {
+    label: 'Colombo',
+    value: 'Colombo',
   },
   {
     label: 'Hambanthota',

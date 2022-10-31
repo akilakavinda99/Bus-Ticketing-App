@@ -4,12 +4,12 @@ const endLocationList = [
     value: 'Kaduwela',
   },
   {
-    label: 'Kaluthara',
-    value: 'Kaluthara',
+    label: 'Kalutara',
+    value: 'Kalutara',
   },
   {
-    label: 'Natthandiya',
-    value: 'Natthandiya',
+    label: 'Colombo',
+    value: 'Colombo',
   },
 ];
 

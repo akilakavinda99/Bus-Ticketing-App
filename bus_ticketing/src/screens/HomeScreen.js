@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  AsyncStorage,
   Image,
   ImageBackground,
   Text,
@@ -13,6 +14,11 @@ import NavigationClass from '../utils/navigationFunctions';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const getValue = async () => {
+    const value = await AsyncStorage.getItem('userId');
+    console.log(value);
+  };
+  getValue();
   const navigateToBookNow = () => {
     // Function to navigate to the book now view.
     navigation.navigate('BookNow');
