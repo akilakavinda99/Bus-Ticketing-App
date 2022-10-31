@@ -2,17 +2,18 @@ import React from 'react';
 import {Dimensions, View} from 'react-native';
 import MapViewDirections from 'react-native-maps-directions';
 import MapView, {Marker} from 'react-native-maps';
+import {
+  GOOGLE_MAPS_APIKEY,
+  INITIAL_LATITUDE,
+  INITIAL_LATITUDE_DELTA,
+  INITIAL_LONGITUDE,
+} from '../constants/map.constants';
+import getInitialLongitudeDelta from '../utils/getInitialLongitude';
 
 const MapDirectionScreen = () => {
-  const {width, height} = Dimensions.get('window');
-  const ASPECT_RATIO = width / height;
-  const LATITUDE = 7.8731;
-  const LONGITUDE = 80.7718;
-  const LATITUDE_DELTA = 5;
-  const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+  const INITIAL_LONGITUDE_DELTA = getInitialLongitudeDelta();
   const origin = {latitude: 6.0329, longitude: 80.2168};
   const destination = {latitude: 6.9271, longitude: 79.8612};
-  const GOOGLE_MAPS_APIKEY = 'AIzaSyBSIp6m_Abdao0a5qgr_rS5Ryu2Oa_wHUw';
   return (
     <View>
       <MapView
@@ -21,10 +22,10 @@ const MapDirectionScreen = () => {
           height: Dimensions.get('window').height,
         }}
         initialRegion={{
-          latitude: LATITUDE,
-          longitude: LONGITUDE,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
+          latitude: INITIAL_LATITUDE,
+          longitude: INITIAL_LONGITUDE,
+          latitudeDelta: INITIAL_LATITUDE_DELTA,
+          longitudeDelta: INITIAL_LONGITUDE_DELTA,
         }}>
         <Marker
           coordinate={{latitude: origin.latitude, longitude: origin.longitude}}

@@ -10,6 +10,7 @@ import QRComponent from '../components/qrComponent/QRComponent';
 import RNFS from 'react-native-fs';
 import CameraRoll from '@react-native-community/cameraroll';
 import {err} from 'react-native-svg/lib/typescript/xml';
+import androidPermissionCheck from '../utils/permissionCheck';
 
 const QRScreen = () => {
   const initialItemState = {
@@ -25,7 +26,7 @@ const QRScreen = () => {
 
   const saveQrToDisk = async () => {
     if (Platform.OS === 'android') {
-      await hasAndroidPermission();
+      await androidPermissionCheck();
     }
 
     if (productQRref) {
@@ -41,17 +42,6 @@ const QRScreen = () => {
             ToastAndroid.show('QRCode saved to gallery', ToastAndroid.LONG);
           });
       });
-    }
-  };
-
-  const hasAndroidPermission = async () => {
-    try {
-      const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
-      await PermissionsAndroid.request(permission);
-      Promise.resolve();
-    } catch (error) {
-      console.log(error);
-      Promise.reject(error);
     }
   };
 

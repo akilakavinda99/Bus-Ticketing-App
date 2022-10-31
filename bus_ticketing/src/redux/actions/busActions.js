@@ -4,17 +4,17 @@ import {
   GET_BUS_SUCCESS,
 } from '../types/getBusTypes';
 
-export const sendLoginRequest = data => ({
+export const sendBusRequest = data => ({
   type: GET_BUS_REQUEST,
   data: data,
 });
 
-export const loginRequestSuccess = data => ({
+export const busRequestSuccess = data => ({
   type: GET_BUS_SUCCESS,
   data: data,
 });
 
-export const loginRequestFailure = err => ({
+export const busRequestFailure = err => ({
   type: GET_BUS_FAILURE,
   error: err,
 });
