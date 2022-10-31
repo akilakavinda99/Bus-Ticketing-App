@@ -9,6 +9,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import HomeCard from '../components/homeCard/HomeCard';
 import homeScreenStyle from './styles/HomeScreenStyles';
+import NavigationClass from '../utils/navigationFunctions';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -18,7 +19,6 @@ const HomeScreen = () => {
   };
   const navigateToBookLater = () => {
     // Function to navigate to the book later view.
-    navigation.navigate('BookLater');
   };
 
   return (
@@ -47,7 +47,7 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
       <View style={homeScreenStyle.card2}>
-        <TouchableOpacity onPress={navigateToBookLater}>
+        <TouchableOpacity>
           <HomeCard
             image="https://i.postimg.cc/Pfz3Rkt1/61943-time.gif"
             text="Do you want to book for later?"

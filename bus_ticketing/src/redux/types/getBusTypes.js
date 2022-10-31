@@ -1,0 +1,3 @@
+export const GET_BUS_REQUEST = 'GET_BUS_REQUEST';
+export const GET_BUS_SUCCESS = 'GET_BUS_SUCCESS';
+export const GET_BUS_FAILURE = 'GET_BUS_FAILURE';

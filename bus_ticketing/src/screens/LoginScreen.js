@@ -1,7 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {Button, Checkbox, TextInput} from 'react-native-paper';
+import {useDispatch, useSelector} from 'react-redux';
+import {sendBusRequest} from '../redux/actions/busActions';
+
+import API from '../redux/api/apiConnection';
 import loginStyle from './styles/LoginScreenStyles';
 
 const LoginScreen = () => {
@@ -13,6 +17,14 @@ const LoginScreen = () => {
   const login = () => {
     navigation.navigate('Home');
   };
+
+  const {loading, data, error} = useSelector(state => state.buses);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(sendBusRequest());
+  }, []);
+  console.log(loading);
+  console.log('this is errr', error);
 
   const [checked, setChecked] = React.useState(false);
   return (
