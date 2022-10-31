@@ -13,7 +13,9 @@ import {Provider} from 'react-redux';
 export default function Main() {
   return (
     <Provider store={store}>
-      <App />
+      <PaperProvider>
+        <App />
+      </PaperProvider>
     </Provider>
   );
 }

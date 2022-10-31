@@ -1,11 +1,5 @@
 import React, {useState} from 'react';
-import {
-  Button,
-  View,
-  Platform,
-  PermissionsAndroid,
-  ToastAndroid,
-} from 'react-native';
+import {Button, View, Platform, ToastAndroid} from 'react-native';
 import QRComponent from '../components/qrComponent/QRComponent';
 import RNFS from 'react-native-fs';
 import CameraRoll from '@react-native-community/cameraroll';

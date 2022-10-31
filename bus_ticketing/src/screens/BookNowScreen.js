@@ -1,12 +1,15 @@
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 import React, {useState} from 'react';
 import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
 import {Button, ProgressBar} from 'react-native-paper';
 import DropDown from 'react-native-paper-dropdown';
+import BusCard from '../components/busCard/BusCard';
 import IntialComponent from '../components/initialComponent/IntialComponent';
 import NoResults from '../components/noResults/NoResults';
 import endLocationList from '../constants/endLocation.constants';
 import startLocationList from '../constants/location.constants';
+import API from '../redux/api/apiConnection';
 import bookNowScreenStyle from './styles/BookNowScreenStyles';
 
 const BookNowScreen = () => {
@@ -20,11 +23,33 @@ const BookNowScreen = () => {
 
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
-
-  const search = () => {
+  const api = new API();
+  const search = async () => {
+    const obj = {
+      startLocation: start,
+      destination: end,
+    };
     setInitial(false);
     setLoading(true);
-    navigation.navigate('Payment');
+
+    const result = await api.post('timetable/getBusByRoute', obj);
+    console.log('this si result', result.data.busTimes);
+    setAvailableBuses(result.data.busTimes);
+
+    setLoading(false);
+    // await axios
+    //   .post(
+    //     'https://csse-web-backend.herokuapp.com/timetable/getBusByRoute',
+    //     obj,
+    //   )
+    //   .then(res => {
+    //     console.log(res.data.busTimes[0].bus);
+    //   })
+    //   .catch(err => {
+    //     console.log(err.response.data);
+    //   });
+
+    // const result = navigation.navigate('Payment');
   };
 
   return (
@@ -81,7 +106,16 @@ const BookNowScreen = () => {
         ) : availableBuses == 0 ? (
           <NoResults />
         ) : (
-          <Text>Buses</Text>
+          <View>
+            {availableBuses.map(function (f) {
+              return (
+                <BusCard
+                  arrivalTime={f.arivalTimeOnDestination}
+                  busType={f.bus.busType}
+                />
+              );
+            })}
+          </View>
         )}
       </ScrollView>
     </View>
