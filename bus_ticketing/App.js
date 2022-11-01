@@ -1,15 +1,6 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BookNowScreen from './src/screens/BookNowScreen';
 import BusViewScreen from './src/screens/BusViewScreen';
 import HomeScreen from './src/screens/HomeScreen';
@@ -22,6 +13,7 @@ import RegisterationTypeScreen from './src/screens/RegisterationTypeScreen';
 import ReloadAccount from './src/screens/ReloadAccount';
 import TicketScreen from './src/screens/TicketScreen';
 import TicketTypeScreen from './src/screens/TicketTypeScreen';
+import UserProfile from './src/screens/UserProfile';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -106,6 +98,13 @@ const App = () => {
           component={BusViewScreen}
           options={{
             title: 'Bus View',
+          }}
+        />
+        <Stack.Screen
+          name="UserProfile"
+          component={UserProfile}
+          options={{
+            headerShown: false,
           }}
         />
       </Stack.Navigator>

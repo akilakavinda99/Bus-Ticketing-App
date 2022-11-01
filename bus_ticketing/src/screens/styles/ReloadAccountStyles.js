@@ -18,7 +18,7 @@ const reloadAccountStyle = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 10,
         fontSize: 10,
-    }
+    },
 });
 
 export default reloadAccountStyle;
