@@ -1,14 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
-import { ActivityIndicator, ScrollView, Text, View, StyleSheet, ImageBackground } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { Text, View, ImageBackground } from 'react-native';
 import { Button, Checkbox, TextInput } from 'react-native-paper';
-
+import Icon from 'react-native-vector-icons/Ionicons';
+import reloadAccountStyle from './styles/ReloadAccountStyles';
 
 const ReloadAccount = () => {
-    const navigation = useNavigation();
-
     return (
         <View>
             <View
@@ -33,24 +30,13 @@ const ReloadAccount = () => {
                         }}>.00</Text>
                 </View>
             </View>
-            <View style={{
-                marginTop: 20,
-                marginLeft: 20,
-                marginRight: 20,
-                padding: 10,
-                backgroundColor: '#fff',
-                borderRadius: 10,
-                elevation: 5,
-            }}>
+            <View style={reloadAccountStyle.cardView}>
                 <TextInput
                     mode="outlined"
                     activeOutlineColor="#9FA5AA"
                     label="Card Number"
                     outlineColor="#9FA5AA"
-                    style={{
-                        backgroundColor: '#fff',
-                        marginBottom: 10,
-                    }}
+                    style={reloadAccountStyle.textInput}
                 />
                 <View style={{
                     flexDirection: 'row',
@@ -61,11 +47,10 @@ const ReloadAccount = () => {
                         activeOutlineColor="#9FA5AA"
                         label="Expiry"
                         outlineColor="#9FA5AA"
-                        style={{
-                            backgroundColor: '#fff',
-                            marginBottom: 10,
-                            width: '45%',
-                        }}
+                        style={[
+                            reloadAccountStyle.textInput,
+                            { width: '45%' },
+                        ]}
                     />
                     <TextInput
                         mode="outlined"
@@ -74,34 +59,16 @@ const ReloadAccount = () => {
                         outlineColor="#9FA5AA"
                         secureTextEntry={true}
                         right={<TextInput.Icon icon="eye-off" />}
-                        // right={<TextInput.Icon name={() => {
-                        //     return (
-                        //         <View style={{
-                        //             flexDirection: 'row',
-                        //             alignItems: 'center',
-                        //         }}>
-                        //             <Icon name="eye-off" size={16} style={{ paddingRight: 5}} />
-                        //             <Icon name="help-circle" size={16} />
-                        //         </View>
-                        //     );
-                        // }} />
-                        // }
-                        style={{
-                            backgroundColor: '#fff',
-                            marginBottom: 10,
-                            width: '40%',
-                        }}
+                        style={[
+                            reloadAccountStyle.textInput,
+                            { width: '40%' },
+                        ]}
                     />
                     <Icon name="help-circle" size={25} style={{
                         alignSelf: 'center',
-                    }}/>
+                    }} />
                 </View>
-                <View style={{
-                    marginTop: 10,
-                    marginBottom: 10,
-                    borderBottomColor: '#9FA5AA',
-                    borderBottomWidth: StyleSheet.hairlineWidth,
-                }} />
+                <View style={reloadAccountStyle.hr} />
 
                 <ImageBackground
                     imageStyle={{
