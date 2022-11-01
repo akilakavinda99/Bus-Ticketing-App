@@ -112,6 +112,7 @@ const BookNowScreen = () => {
                 <BusCard
                   arrivalTime={f.arivalTimeOnDestination}
                   busType={f.bus.busType}
+                  allDetails={f}
                 />
               );
             })}

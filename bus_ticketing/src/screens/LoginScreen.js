@@ -1,15 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import {
-  ActivityIndicator,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { Button, Checkbox, TextInput } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
+import {Button, Checkbox, TextInput} from 'react-native-paper';
+import {useDispatch, useSelector} from 'react-redux';
+import {AsyncStorage} from '@react-native-async-storage/async-storage';
 import API from '../redux/api/apiConnection';
 import loginStyle from './styles/LoginScreenStyles';
 
@@ -32,7 +27,7 @@ const LoginScreen = () => {
   const sendLoginRequest = async data => {
     setLoading(true);
     const result = await api.post('main/login', obj);
-    await AsyncStorage.setItem('userId', result.data._id);
+    // await AsyncStorage.setItem('userId', result.data._id);
     setLoading(false);
     console.log('this is results', result.data);
     navigation.navigate('Home');
@@ -63,7 +58,8 @@ const LoginScreen = () => {
             outlineColor="#9FA5AA"
             placeholder="Email"
             style={loginStyle.textInput}
-            onChangeText={value => setUserName(value)} />
+            onChangeText={value => setUserName(value)}
+          />
           <Text style={loginStyle.labelStyle}>Password</Text>
           <TextInput
             mode="outlined"
