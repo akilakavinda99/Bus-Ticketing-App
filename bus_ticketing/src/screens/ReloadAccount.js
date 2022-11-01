@@ -1,13 +1,63 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, ImageBackground } from 'react-native';
-import { Button, Checkbox, TextInput } from 'react-native-paper';
+import { Button, Checkbox, Divider, TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import reloadAccountStyle from './styles/ReloadAccountStyles';
+import { cardValidation } from './validations/ReloadAccountValidations';
 
 const ReloadAccount = () => {
+    const [chkSaveCard, setChkSaveCard] = useState(false);
+    const [chkConditions, setChkConditions] = useState(false);
+    const [isSubmit, setIsSubmit] = useState(false);
+    const [cardDetails, setCardDetails] = useState({
+        cardNumber: '',
+        expiry: '',
+        cvc: '',
+    });
+
+    // to handle the errors
+    const [errorChkConditions, setErrorChkConditions] = useState('');
+    const [cardErrors, setCardErrors] = useState({});
+
+    // execute when the reload button is clicked
+    const handleReload = () => {
+        // get errors on card number, expiry and cvc
+        const errors = cardValidation(cardDetails);
+        setCardErrors(errors);
+
+        // check if the conditions checkbox is checked
+        if (!chkConditions) {
+            setErrorChkConditions('Please accept the terms and conditions');
+        } else {
+            setErrorChkConditions('');
+        }
+
+        setIsSubmit(true);
+    };
+
+    const handleExpiryChange = (text) => {
+        if (text.length === 2) {
+            setCardDetails({ ...cardDetails, expiry: text + '/' });
+        } else if (text.length > 2 && text[2] !== '/') {
+            setCardDetails({ ...cardDetails, expiry: text.slice(0, 2) + '/' + text.slice(2, 4) });
+        }
+    };
+
+    // to handle the reload
+    // check if the card number, expiry and cvc are valid
+    // check if the conditions checkbox is checked
+    useEffect(() => {
+        if (Object.keys(cardErrors).length === 0 && isSubmit && chkConditions) {
+            console.log('success');
+        } else {
+            setIsSubmit(false);
+        }
+    }, [cardErrors, isSubmit, chkConditions]);
+
     return (
         <View>
+            {/* Show the account balance in the top of the page */}
             <View
                 style={{
                     alignItems: 'center',
@@ -31,44 +81,59 @@ const ReloadAccount = () => {
                 </View>
             </View>
             <View style={reloadAccountStyle.cardView}>
+                {/* Field to enter the card details (card number, expiry and cvc) */}
                 <TextInput
                     mode="outlined"
                     activeOutlineColor="#9FA5AA"
                     label="Card Number"
                     outlineColor="#9FA5AA"
+                    keyboardType="numeric"
+                    maxLength={16}
+                    error={cardErrors.cardNumber}
                     style={reloadAccountStyle.textInput}
+                    onChangeText={value => setCardDetails({ ...cardDetails, cardNumber: value })}
                 />
+                <Text style={reloadAccountStyle.errorText}>{cardErrors.cardNumber}</Text>
                 <View style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                 }}>
-                    <TextInput
-                        mode="outlined"
-                        activeOutlineColor="#9FA5AA"
-                        label="Expiry"
-                        outlineColor="#9FA5AA"
-                        style={[
-                            reloadAccountStyle.textInput,
-                            { width: '45%' },
-                        ]}
-                    />
-                    <TextInput
-                        mode="outlined"
-                        activeOutlineColor="#9FA5AA"
-                        label="CVC"
-                        outlineColor="#9FA5AA"
-                        secureTextEntry={true}
-                        right={<TextInput.Icon icon="eye-off" />}
-                        style={[
-                            reloadAccountStyle.textInput,
-                            { width: '40%' },
-                        ]}
-                    />
+                    <View style={{ width: '45%' }}>
+                        <TextInput
+                            mode="outlined"
+                            activeOutlineColor="#9FA5AA"
+                            label="Expiry"
+                            outlineColor="#9FA5AA"
+                            keyboardType="phone-pad"
+                            maxLength={5}
+                            error={cardErrors.cardExpiry}
+                            style={reloadAccountStyle.textInput}
+                            value={cardDetails.expiry}
+                            onChangeText={value => { setCardDetails({ ...cardDetails, expiry: value }); handleExpiryChange(value); }}
+                        />
+                        <Text style={reloadAccountStyle.errorText}>{cardErrors.cardExpiry}</Text>
+                    </View>
+                    <View style={{ width: '40%' }}>
+                        <TextInput
+                            mode="outlined"
+                            activeOutlineColor="#9FA5AA"
+                            label="CVC"
+                            outlineColor="#9FA5AA"
+                            keyboardType="numeric"
+                            maxLength={4}
+                            error={cardErrors.cvc}
+                            secureTextEntry={true}
+                            right={<TextInput.Icon icon="eye-off" />}
+                            style={reloadAccountStyle.textInput}
+                            onChangeText={value => setCardDetails({ ...cardDetails, cvc: value })}
+                        />
+                        <Text style={reloadAccountStyle.errorText}>{cardErrors.cvc}</Text>
+                    </View>
                     <Icon name="help-circle" size={25} style={{
                         alignSelf: 'center',
                     }} />
                 </View>
-                <View style={reloadAccountStyle.hr} />
+                <Divider />
 
                 <ImageBackground
                     imageStyle={{
@@ -97,7 +162,13 @@ const ReloadAccount = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                 }}>
-                    <Checkbox />
+                    <Checkbox
+                        color="#0096FF"
+                        status={chkSaveCard ? 'checked' : 'unchecked'}
+                        onPress={() => {
+                            setChkSaveCard(!chkSaveCard);
+                        }}
+                    />
                     <Text style={{
                         fontSize: 12,
                     }}>
@@ -108,7 +179,13 @@ const ReloadAccount = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                 }}>
-                    <Checkbox />
+                    <Checkbox
+                        color="#0096FF"
+                        status={chkConditions ? 'checked' : 'unchecked'}
+                        onPress={() => {
+                            setChkConditions(!chkConditions);
+                        }}
+                    />
                     <Text style={{
                         fontSize: 12,
                     }}>I agree to
@@ -118,6 +195,7 @@ const ReloadAccount = () => {
                             }}> Terms and Conditions</Text>
                     </Text>
                 </View>
+                <Text style={reloadAccountStyle.errorText}>{errorChkConditions}</Text>
                 <Button
                     style={{
                         marginTop: 20,
@@ -125,8 +203,9 @@ const ReloadAccount = () => {
                     }}
                     uppercase={true}
                     mode="contained"
-                    color="#0096FF">
-                    Continue
+                    color="#0096FF"
+                    onPress={handleReload}>
+                    Reload
                 </Button>
             </View>
         </View>

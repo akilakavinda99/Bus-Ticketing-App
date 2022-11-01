@@ -1,12 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 const reloadAccountStyle = StyleSheet.create({
-    hr: {
-        marginTop: 10,
-        marginBottom: 10,
-        borderBottomColor: '#9FA5AA',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-    },
     cardView: {
         marginTop: 20,
         marginLeft: 20,
@@ -18,8 +12,13 @@ const reloadAccountStyle = StyleSheet.create({
     },
     textInput: {
         backgroundColor: '#fff',
-        marginBottom: 10,
     },
+    errorText: {
+        color: 'firebrick',
+        marginBottom: 10,
+        marginLeft: 10,
+        fontSize: 10,
+    }
 });
 
 export default reloadAccountStyle;
