@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import BookNowScreen from './src/screens/BookNowScreen';
+import BusViewScreen from './src/screens/BusViewScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import LocalRegisterScreen from './src/screens/LocalRegisterScreen';
 import LoginScreen from './src/screens/LoginScreen';
@@ -27,7 +28,7 @@ const App = () => {
   console.log('Thsi is consoleeeeeeeee');
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ReloadAccount">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Login"
           component={LoginScreen}
@@ -98,6 +99,13 @@ const App = () => {
           component={ReloadAccount}
           options={{
             title: 'Reload Account',
+          }}
+        />
+        <Stack.Screen
+          name="BusView"
+          component={BusViewScreen}
+          options={{
+            title: 'Bus View',
           }}
         />
       </Stack.Navigator>
