@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
-  AsyncStorage,
   Image,
   ImageBackground,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 import HomeCard from '../components/homeCard/HomeCard';
 import homeScreenStyle from './styles/HomeScreenStyles';
 import NavigationClass from '../utils/navigationFunctions';
@@ -15,8 +16,12 @@ import NavigationClass from '../utils/navigationFunctions';
 const HomeScreen = () => {
   const navigation = useNavigation();
   const getValue = async () => {
-    const value = await AsyncStorage.getItem('userId');
-    console.log(value);
+    try {
+      const value = await AsyncStorage.getItem('userId');
+      console.log(value);
+    } catch (e) {
+      console.log(e);
+    }
   };
   getValue();
   const navigateToBookNow = () => {

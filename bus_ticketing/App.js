@@ -18,6 +18,7 @@ import MapDirectionScreen from './src/screens/MapDirectionScreen';
 import PaymentScreen from './src/screens/PaymentScreen';
 import QRScreen from './src/screens/QRScreen';
 import RegisterationTypeScreen from './src/screens/RegisterationTypeScreen';
+import ReloadAccount from './src/screens/ReloadAccount';
 import TicketScreen from './src/screens/TicketScreen';
 import TicketTypeScreen from './src/screens/TicketTypeScreen';
 
@@ -26,7 +27,7 @@ const App = () => {
   console.log('Thsi is consoleeeeeeeee');
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="ReloadAccount">
         <Stack.Screen
           name="Login"
           component={LoginScreen}
@@ -90,6 +91,13 @@ const App = () => {
           component={MapDirectionScreen}
           options={{
             title: 'Map View',
+          }}
+        />
+        <Stack.Screen
+          name="ReloadAccount"
+          component={ReloadAccount}
+          options={{
+            title: 'Reload Account',
           }}
         />
       </Stack.Navigator>
