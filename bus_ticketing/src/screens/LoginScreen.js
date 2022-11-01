@@ -1,15 +1,15 @@
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  AsyncStorage,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Button, Checkbox, TextInput} from 'react-native-paper';
-import {useDispatch, useSelector} from 'react-redux';
+import { Button, Checkbox, TextInput } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
 import API from '../redux/api/apiConnection';
 import loginStyle from './styles/LoginScreenStyles';
 
@@ -28,7 +28,6 @@ const LoginScreen = () => {
     password: password,
   };
 
-  console.log('adsd');
   const api = new API();
   const sendLoginRequest = async data => {
     setLoading(true);
@@ -39,15 +38,7 @@ const LoginScreen = () => {
     navigation.navigate('Home');
   };
 
-  // navigation.navigate('Home');
-  // console.log('THis isssss', data);
-  // useEffect(() => {
-  //   dispatch(sendBusRequest());
-  // }, []);
-  // console.log(loading);
-  // console.log('this is errr', error);
-
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = useState(false);
   return (
     <View style={loginStyle.mainView}>
       {loading ? (
@@ -72,7 +63,7 @@ const LoginScreen = () => {
             outlineColor="#9FA5AA"
             placeholder="Email"
             style={loginStyle.textInput}
-            onChangeText={value => setUserName(value)}></TextInput>
+            onChangeText={value => setUserName(value)} />
           <Text style={loginStyle.labelStyle}>Password</Text>
           <TextInput
             mode="outlined"
