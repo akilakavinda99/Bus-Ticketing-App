@@ -1,16 +1,20 @@
-import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
-import {Chip} from 'react-native-paper';
+import { Chip } from 'react-native-paper';
 import busCardStyles from './BusCardStyles';
 
 const BusCard = props => {
   const navigation = useNavigation();
   const all = props.allDetails;
+  const ticketPrice = props.ticketPrice;
+  all.ticketPrice = ticketPrice;
   const navigateToBusView = () => {
-    navigation.navigate('BusView', {all: all});
+    navigation.navigate('BusView', { all: all });
   };
+
   return (
     <TouchableOpacity onPress={navigateToBusView}>
       <DropShadow
@@ -50,9 +54,9 @@ const BusCard = props => {
           </View>
           <View>
             <View style={busCardStyles.row}>
-              <Text style={busCardStyles.type}>Type - {props.busType}</Text>
+              <Text style={busCardStyles.type}>Type - <Text style={{ textTransform: 'uppercase' }}>{props.busType}</Text></Text>
               <Text style={busCardStyles.price}>
-                Price Per Person - 120 LKR
+                Price Per Person - {ticketPrice} LKR
               </Text>
             </View>
           </View>

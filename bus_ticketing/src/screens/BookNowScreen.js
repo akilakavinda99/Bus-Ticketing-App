@@ -1,8 +1,8 @@
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import React, {useState} from 'react';
-import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
-import {Button, ProgressBar} from 'react-native-paper';
+import React, { useState } from 'react';
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
+import { Button, ProgressBar } from 'react-native-paper';
 import DropDown from 'react-native-paper-dropdown';
 import BusCard from '../components/busCard/BusCard';
 import IntialComponent from '../components/initialComponent/IntialComponent';
@@ -10,6 +10,7 @@ import NoResults from '../components/noResults/NoResults';
 import endLocationList from '../constants/endLocation.constants';
 import startLocationList from '../constants/location.constants';
 import API from '../redux/api/apiConnection';
+import getTicketPrice from '../utils/getTicketPrice';
 import bookNowScreenStyle from './styles/BookNowScreenStyles';
 
 const BookNowScreen = () => {
@@ -20,6 +21,7 @@ const BookNowScreen = () => {
   const [loading, setLoading] = useState(false);
   const [initial, setInitial] = useState(true);
   const [availableBuses, setAvailableBuses] = useState([]);
+  const [ticketPrices, setTicketPrices] = useState([]);
 
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
@@ -33,7 +35,8 @@ const BookNowScreen = () => {
     setLoading(true);
 
     const result = await api.post('timetable/getBusByRoute', obj);
-    console.log('this si result', result.data.busTimes);
+    // console.log('this si result', result.data.busTimes);
+    setTicketPrices(result.data.ticketPrice);
     setAvailableBuses(result.data.busTimes);
 
     setLoading(false);
@@ -107,12 +110,14 @@ const BookNowScreen = () => {
           <NoResults />
         ) : (
           <View>
-            {availableBuses.map(function (f) {
+            {availableBuses.map(function (f, i) {
               return (
                 <BusCard
-                  arrivalTime={f.arivalTimeOnDestination}
+                  key={i}
+                  arrivalTime={f.arivalTimeOnStart}
                   busType={f.bus.busType}
                   allDetails={f}
+                  ticketPrice={getTicketPrice(ticketPrices, f.bus.busType)}
                 />
               );
             })}
