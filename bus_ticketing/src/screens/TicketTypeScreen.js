@@ -1,22 +1,54 @@
-import {useNavigation} from '@react-navigation/native';
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import { Alert, Image, Text, View } from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
-import {Button, RadioButton} from 'react-native-paper';
+import { Button, RadioButton } from 'react-native-paper';
+import API from '../redux/api/apiConnection';
 import ticketTypeScreenStyle from './styles/TicketTypeStyles';
 
-const TicketTypeScreen = () => {
+const TicketTypeScreen = ({ navigation, route }) => {
+  const api = new API();
+  const { ticket, paymentMethod } = route.params;
   const [checked, setChecked] = React.useState('ticket');
-  const navigation = useNavigation();
 
-  const navigateToTicketType = () => {
-    if (checked === 'ticket') {
-      navigation.navigate('TicketScreen');
+  const navigateToTicketType = async () => {
+    ticket.userID = '123456789'; // This is a dummy user ID. This should be replaced with the user ID of the logged in user.
+    ticket.paymentMethod = paymentMethod;
+
+    const result = await api.post('ticket/new', ticket);
+
+    if (result.data.resCode === 200) {
+      if (checked === 'ticket') { navigation.navigate('TicketScreen', { ticket: ticket }); }
+      else { navigation.navigate('QR', { ticket: ticket }); }
+
+    } else if (result.data.resCode === 401) {
+      console.log('Error creating ticket');
+      Alert.alert(
+        'Error',
+        'Error creating ticket',
+        [{ text: 'OK', style: 'cancel' }]
+      );
+
+    } else if (result.data.resCode === 402) {
+      console.log('Insufficient account balance');
+      Alert.alert(
+        'Alert',
+        'Insufficient account balance. Do you want to add money to your account?',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { text: 'OK', onPress: () => navigation.navigate('ReloadAccount') },
+        ]
+      );
+
     } else {
-      navigation.navigate('QR');
+      console.log('Error creating ticket');
+      Alert.alert(
+        'Error',
+        'Error creating ticket',
+        [{ text: 'OK', style: 'cancel' }],
+        { cancelable: true }
+      );
     }
-
-    // navigation.navigate('QR');
   };
 
   return (
@@ -57,11 +89,8 @@ const TicketTypeScreen = () => {
             shadowRadius: 5,
           }}>
           <View style={ticketTypeScreenStyle.rowView}>
-            <Button icon="credit-card" />
-
-            <Text style={ticketTypeScreenStyle.creditText}>
-              Credit/Debit Card
-            </Text>
+            <Button icon="ticket" />
+            <Text style={ticketTypeScreenStyle.creditText}>Get a ticket</Text>
             <RadioButton
               value="ticket"
               status={checked === 'ticket' ? 'checked' : 'unchecked'}
@@ -80,9 +109,8 @@ const TicketTypeScreen = () => {
             shadowRadius: 5,
           }}>
           <View style={ticketTypeScreenStyle.rowView}>
-            <Button icon="account" />
-
-            <Text style={ticketTypeScreenStyle.creditText2}> Account</Text>
+            <Button icon="qrcode" />
+            <Text style={ticketTypeScreenStyle.creditText2}> Get a QR</Text>
             <RadioButton
               value="qr"
               status={checked === 'qr' ? 'checked' : 'unchecked'}

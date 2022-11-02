@@ -1,12 +1,26 @@
 import React from 'react';
-
 import { View, StyleSheet, Text } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import { Button } from 'react-native-paper';
+
 import busViewScreenStyle from './styles/BusViewStyles';
 
 const BusViewScreen = ({ navigation, route }) => {
   const { all } = route.params;
-  console.log(all);
+
+  const handleBookTicket = async () => {
+    const ticket = {
+      ticketType: 'booking',
+      ticketPrice: all.ticketPrice,
+      ticketFrom: all.startLocation,
+      ticketTo: all.destination,
+      ticketTime: all.arivalTimeOnStart,
+      ticketBus: all.bus.busNumber,
+      routeNumber: all.route,
+    };
+
+    navigation.navigate('Payment', { ticket: ticket });
+  };
+
   return (
     <View>
       <View>
@@ -26,7 +40,10 @@ const BusViewScreen = ({ navigation, route }) => {
 
       <Text style={busViewScreenStyle.tPrice}>{all.ticketPrice} LKR</Text>
       <View>
-        <Button style={busViewScreenStyle.bookButton} mode="contained">
+        <Button
+          style={busViewScreenStyle.bookButton}
+          mode="contained"
+          onPress={handleBookTicket}>
           Book Ticket
         </Button>
         <Button style={busViewScreenStyle.bookButton} mode="contained">
@@ -36,7 +53,5 @@ const BusViewScreen = ({ navigation, route }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default BusViewScreen;

@@ -1,20 +1,23 @@
-import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {Image, Text, View} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import React, { useState } from 'react';
+import { Image, Text, View } from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
-import {Button, RadioButton} from 'react-native-paper';
+import { Button, RadioButton } from 'react-native-paper';
 import paymentScreenStyle from './styles/PaymentStyles';
 
-const PaymentScreen = () => {
-  const [checked, setChecked] = React.useState('credit');
-  const navigation = useNavigation();
+const PaymentScreen = ({ navigation, route }) => {
+  const { ticket } = route.params;
+  const [paymentMethod, setPaymentMethod] = useState('credit');
 
   const navigateToTicketType = () => {
-    // navigation.navigate('QR');
-    navigation.navigate('TicketType');
+    if (paymentMethod === 'account') {
+      navigation.navigate('TicketType', { ticket: ticket, paymentMethod: 'account' });
+    } else if (paymentMethod === 'credit') {
+
+    }
   };
+
   const navigateToMAp = () => {
-    // navigation.navigate('QR');
     navigation.navigate('MapScreen');
   };
   return (
@@ -22,7 +25,7 @@ const PaymentScreen = () => {
       <View style={paymentScreenStyle.imageView}>
         {
           // Change the image according to the selected payment type.
-          checked === 'credit' ? (
+          paymentMethod === 'credit' ? (
             <Image
               source={{
                 uri: 'https://i.postimg.cc/wMRTB8q4/99455-credit-card.gif',
@@ -60,8 +63,8 @@ const PaymentScreen = () => {
             <Text style={paymentScreenStyle.creditText}>Credit/Debit Card</Text>
             <RadioButton
               value="Card"
-              status={checked === 'credit' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked('credit')}
+              status={paymentMethod === 'credit' ? 'checked' : 'unchecked'}
+              onPress={() => setPaymentMethod('credit')}
             />
           </View>
         </DropShadow>
@@ -80,9 +83,9 @@ const PaymentScreen = () => {
 
             <Text style={paymentScreenStyle.creditText2}> Account</Text>
             <RadioButton
-              value="Account"
-              status={checked === 'Account' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked('Account')}
+              value="account"
+              status={paymentMethod === 'account' ? 'checked' : 'unchecked'}
+              onPress={() => setPaymentMethod('account')}
             />
           </View>
         </DropShadow>

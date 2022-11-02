@@ -1,12 +1,15 @@
-import React, {useRef} from 'react';
-import {ImageBackground, Text, View} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import React, { useRef } from 'react';
+import { ImageBackground, Text, View } from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
-import {Button} from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import ViewShot from 'react-native-view-shot';
 import QRComponent from '../components/qrComponent/QRComponent';
 import ticketScreenStyle from './styles/TicketScreenStyles';
 
-const TicketScreen = () => {
+const TicketScreen = ({ navigation, route }) => {
+  const { ticket } = route.params;
+  console.log(ticket);
   const ref = useRef();
 
   const takeSs = () => {
@@ -41,7 +44,7 @@ const TicketScreen = () => {
           }}>
           <ImageBackground
             style={ticketScreenStyle.imageBg}
-            imageStyle={{borderRadius: 15}}
+            imageStyle={{ borderRadius: 15 }}
             source={{
               uri: 'https://i.postimg.cc/WbxpKc5N/Untitled-design-2.png',
             }}>
@@ -51,16 +54,16 @@ const TicketScreen = () => {
                 <Text style={ticketScreenStyle.toTxt}>To</Text>
               </View>
               <View style={ticketScreenStyle.row}>
-                <Text style={ticketScreenStyle.from}>Galle</Text>
-                <Text style={ticketScreenStyle.to}>Kaluthara</Text>
+                <Text style={ticketScreenStyle.from}>{ticket.ticketFrom}</Text>
+                <Text style={ticketScreenStyle.to}>{ticket.ticketTo}</Text>
               </View>
               <View style={ticketScreenStyle.row}>
-                <Text style={ticketScreenStyle.dt}>Departure Time</Text>
-                <Text style={ticketScreenStyle.seatNo}>Seat No</Text>
+                <Text style={ticketScreenStyle.dt}>Arrival Time</Text>
+                <Text style={ticketScreenStyle.seatNo}>Route No</Text>
               </View>
               <View style={ticketScreenStyle.row}>
-                <Text style={ticketScreenStyle.dt1}>17:54 pm</Text>
-                <Text style={ticketScreenStyle.seatNo2}>10</Text>
+                <Text style={ticketScreenStyle.dt1}>{ticket.ticketTime}</Text>
+                <Text style={ticketScreenStyle.seatNo2}>{ticket.routeNumber}</Text>
               </View>
               <Text style={ticketScreenStyle.bsNumberTxt}>Bus Number</Text>
               <View style={ticketScreenStyle.nmbrPlate}>
@@ -71,7 +74,7 @@ const TicketScreen = () => {
                     marginLeft: 45,
                     marginTop: 10,
                   }}>
-                  12345
+                  {ticket.ticketBus}
                 </Text>
               </View>
               <View
