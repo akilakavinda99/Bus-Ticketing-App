@@ -1,8 +1,7 @@
-import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
-import React, { useState } from 'react';
-import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
-import { Button, ProgressBar } from 'react-native-paper';
+import React, {useState} from 'react';
+import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
+import {Button, ProgressBar} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 import DropDown from 'react-native-paper-dropdown';
 import BusCard from '../components/busCard/BusCard';
 import IntialComponent from '../components/initialComponent/IntialComponent';
@@ -25,6 +24,8 @@ const BookNowScreen = () => {
 
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
+
+  // create object from API object
   const api = new API();
   const search = async () => {
     const obj = {
@@ -35,24 +36,10 @@ const BookNowScreen = () => {
     setLoading(true);
 
     const result = await api.post('timetable/getBusByRoute', obj);
-    // console.log('this si result', result.data.busTimes);
     setTicketPrices(result.data.ticketPrice);
     setAvailableBuses(result.data.busTimes);
 
     setLoading(false);
-    // await axios
-    //   .post(
-    //     'https://csse-web-backend.herokuapp.com/timetable/getBusByRoute',
-    //     obj,
-    //   )
-    //   .then(res => {
-    //     console.log(res.data.busTimes[0].bus);
-    //   })
-    //   .catch(err => {
-    //     console.log(err.response.data);
-    //   });
-
-    // const result = navigation.navigate('Payment');
   };
 
   return (

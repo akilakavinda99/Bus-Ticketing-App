@@ -16,9 +16,12 @@ import ReloadAccount from './src/screens/ReloadAccount';
 import TicketScreen from './src/screens/TicketScreen';
 import TicketTypeScreen from './src/screens/TicketTypeScreen';
 import UserProfile from './src/screens/UserProfile';
+import RideNowScreen from './src/screens/RideNowScreen';
 
+// Instanciate bottom tab.
 const Tab = createBottomTabNavigator();
 
+// Bottom Navigation Component.
 function MyTabs() {
   return (
     <Tab.Navigator initialRouteName="HomeScreen">
@@ -50,7 +53,6 @@ function MyTabs() {
 
 const App = () => {
   const Stack = createNativeStackNavigator();
-  console.log('Thsi is consoleeeeeeeee');
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
@@ -70,13 +72,6 @@ const App = () => {
         />
 
         <Stack.Screen name="RegisterType" component={RegisterationTypeScreen} />
-        {/* <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            headerShown: false,
-          }}
-        /> */}
 
         <Stack.Screen
           name="LocalRegister"
@@ -124,7 +119,7 @@ const App = () => {
           name="MapScreen"
           component={MapDirectionScreen}
           options={{
-            title: 'Map View',
+            title: 'View Route',
           }}
         />
         <Stack.Screen
@@ -146,6 +141,13 @@ const App = () => {
           component={UserProfile}
           options={{
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="RideNow"
+          component={RideNowScreen}
+          options={{
+            title: 'Scan Your QR',
           }}
         />
       </Stack.Navigator>

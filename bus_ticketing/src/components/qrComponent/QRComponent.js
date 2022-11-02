@@ -1,11 +1,11 @@
 import React from 'react';
 import QRCode from 'react-native-qrcode-svg';
 
-const QRComponent = ({value, getRef}) => {
+const QRComponent = ({value, getRef, size}) => {
   return (
     <QRCode
       value={value}
-      size={100}
+      size={size}
       color="black"
       backgroundColor="white"
       getRef={getRef}

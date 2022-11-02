@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   ImageBackground,
@@ -7,16 +7,16 @@ import {
   View,
 } from 'react-native';
 
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import {AsyncStorage} from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 import HomeCard from '../components/homeCard/HomeCard';
 import homeScreenStyle from './styles/HomeScreenStyles';
-import NavigationClass from '../utils/navigationFunctions';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const getValue = async () => {
     try {
+      // Get the userId from AsyncStorage
       const value = await AsyncStorage.getItem('userId');
       console.log(value);
     } catch (e) {
@@ -30,6 +30,7 @@ const HomeScreen = () => {
   };
   const navigateToBookLater = () => {
     // Function to navigate to the book later view.
+    navigation.navigate('RideNow');
   };
 
   return (
@@ -50,7 +51,7 @@ const HomeScreen = () => {
         />
       </View>
       <View style={homeScreenStyle.card1}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={navigateToBookLater}>
           <HomeCard
             image="https://i.postimg.cc/13CWB55z/113434-booking.gif"
             text="Ride now"

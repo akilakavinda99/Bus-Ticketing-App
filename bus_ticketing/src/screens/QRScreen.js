@@ -18,6 +18,7 @@ const QRScreen = () => {
   const [item, setItem] = useState(initialItemState);
   const [productQRref, setProductQRref] = useState();
 
+  // QR Saving function
   const saveQrToDisk = async () => {
     if (Platform.OS === 'android') {
       await androidPermissionCheck();
@@ -41,8 +42,14 @@ const QRScreen = () => {
 
   return (
     <View>
-      <View>
+      <View
+        style={{
+          marginTop: 80,
+          marginLeft: 100,
+          marginBottom: 30,
+        }}>
         <QRComponent
+          size={200}
           value={JSON.stringify({
             TicketID: item.ticketID,
             FROM: item.From,
@@ -52,7 +59,12 @@ const QRScreen = () => {
           getRef={c => setProductQRref(c)}
         />
       </View>
-      <View>
+      <View
+        style={{
+          width: 250,
+          marginLeft: 70,
+          marginTop: 50,
+        }}>
         <Button onPress={saveQrToDisk} title="Save QR to gallery"></Button>
       </View>
     </View>

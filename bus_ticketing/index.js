@@ -12,6 +12,7 @@ import {Provider} from 'react-redux';
 
 export default function Main() {
   return (
+    // Wrap the app in provider by redux.
     <Provider store={store}>
       <PaperProvider>
         <App />

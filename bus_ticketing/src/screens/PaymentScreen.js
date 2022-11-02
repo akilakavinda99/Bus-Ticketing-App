@@ -1,25 +1,26 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import {Image, Text, View} from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
-import { Button, RadioButton } from 'react-native-paper';
+import {Button, RadioButton} from 'react-native-paper';
 import paymentScreenStyle from './styles/PaymentStyles';
 
-const PaymentScreen = ({ navigation, route }) => {
-  const { ticket } = route.params;
+const PaymentScreen = ({navigation, route}) => {
+  // Get data from previous screen.
+  const {ticket} = route.params;
   const [paymentMethod, setPaymentMethod] = useState('credit');
 
   const navigateToTicketType = () => {
+    // Check the user selected payment method and navigate to ticket type screen.
     if (paymentMethod === 'account') {
-      navigation.navigate('TicketType', { ticket: ticket, paymentMethod: 'account' });
+      navigation.navigate('TicketType', {
+        ticket: ticket,
+        paymentMethod: 'account',
+      });
     } else if (paymentMethod === 'credit') {
-
     }
   };
 
-  const navigateToMAp = () => {
-    navigation.navigate('MapScreen');
-  };
   return (
     <View style={paymentScreenStyle.mainView}>
       <View style={paymentScreenStyle.imageView}>
@@ -95,12 +96,6 @@ const PaymentScreen = ({ navigation, route }) => {
         style={paymentScreenStyle.proceedBtn}
         onPress={navigateToTicketType}>
         Proceed
-      </Button>
-      <Button
-        mode="contained"
-        // style={paymentScreenStyle.proceedBtn}
-        onPress={navigateToMAp}>
-        Map
       </Button>
     </View>
   );

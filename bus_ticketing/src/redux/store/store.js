@@ -4,6 +4,7 @@ import {watcherSaga} from '../saga/rootSaga';
 import busReducer from '../reducers/busReducer';
 import loginReducer from '../reducers/loginReducer';
 
+// Adding the middleware and reducers.
 const rootReducer = combineReducers({
   buses: busReducer,
   loginData: loginReducer,

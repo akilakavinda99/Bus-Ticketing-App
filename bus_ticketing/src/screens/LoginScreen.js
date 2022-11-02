@@ -12,28 +12,33 @@ const LoginScreen = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const navigation = useNavigation();
+  // Navigate to register type screen
   const navigateToRegisterType = () => {
     navigation.navigate('RegisterType');
   };
 
-  const obj = {
+  // Creating login object
+  const loginObject = {
     username: userName,
     password: password,
   };
 
+  // Create API object from API class.
   const api = new API();
+  // Send Login Request Function.
   const sendLoginRequest = async data => {
     setLoading(true);
-    const result = await api.post('main/login', obj);
-    // await AsyncStorage.setItem('userId', result.data._id);
+    const result = await api.post('main/login', loginObject);
+    // Set the userId to Async Storage.
+    await AsyncStorage.setItem('userId', result.data._id);
     setLoading(false);
     console.log('this is results', result.data);
     navigation.navigate('Home');
   };
 
-  const [checked, setChecked] = useState(false);
   return (
     <View style={loginStyle.mainView}>
       {loading ? (

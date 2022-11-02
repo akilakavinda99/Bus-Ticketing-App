@@ -10,6 +10,7 @@ const initialState = {
   error: null,
 };
 
+// Reducer takes the state and update it accordingly.
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_BUS_REQUEST:

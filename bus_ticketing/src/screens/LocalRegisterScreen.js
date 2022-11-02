@@ -40,17 +40,13 @@ const LocalRegisterScreen = () => {
           mode="outlined"
           activeOutlineColor="black"
           outlineColor="#9FA5AA"
-          placeholder="NIC"
+          placeholder="Password"
           style={localRegisterStyle.textInput}
           onChangeText={onChange}
         />
       </View>
 
-      <BoxPasswordStrengthDisplay
-        password={passsword}
-        boxColor="#A9A9A9"
-        // inputStyle={localRegisterStyle.textInput}
-      />
+      <BoxPasswordStrengthDisplay password={passsword} boxColor="#A9A9A9" />
       <Button
         mode="contained"
         style={localRegisterStyle.signupButton}

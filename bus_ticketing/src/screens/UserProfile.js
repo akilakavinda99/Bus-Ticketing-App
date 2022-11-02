@@ -37,7 +37,7 @@ const UserProfile = () => {
             fontSize: 20,
             marginTop: 10,
           }}>
-          John Cena
+          Akila Kavinda
         </Text>
         <Text
           style={{
@@ -46,7 +46,7 @@ const UserProfile = () => {
             fontSize: 12,
             marginTop: 10,
           }}>
-          johncena123@gmail.com
+          akila123@gmail.com
         </Text>
       </View>
       <View style={userProfileStyles.cardView}>
@@ -55,6 +55,8 @@ const UserProfile = () => {
         <ProfileOptionsCard option="Payment Methods" icon="wallet" />
         <ProfileOptionsCard option="Settings" icon="settings" />
         <ProfileOptionsCard option="Change Password" icon="lock-closed" />
+        <ProfileOptionsCard option="Reload Account" icon="cash " />
+
         <TouchableOpacity onPress={navigateTO}>
           <ProfileOptionsCard
             option="My QR"

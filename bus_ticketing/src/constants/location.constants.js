@@ -1,3 +1,5 @@
+// Dummy data to populate the dropdown.
+
 const startLocationList = [
   {
     label: 'Kalutara',

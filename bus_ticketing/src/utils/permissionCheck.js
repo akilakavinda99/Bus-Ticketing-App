@@ -1,5 +1,6 @@
 import {PermissionsAndroid} from 'react-native';
 
+// Check android permission to store data.
 const androidPermissionCheck = async () => {
   try {
     const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
