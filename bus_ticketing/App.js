@@ -1,6 +1,8 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BookNowScreen from './src/screens/BookNowScreen';
 import BusViewScreen from './src/screens/BusViewScreen';
 import HomeScreen from './src/screens/HomeScreen';
@@ -15,6 +17,37 @@ import TicketScreen from './src/screens/TicketScreen';
 import TicketTypeScreen from './src/screens/TicketTypeScreen';
 import UserProfile from './src/screens/UserProfile';
 
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
+  return (
+    <Tab.Navigator initialRouteName="HomeScreen">
+      <Tab.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+          title: 'Home',
+          tabBarIcon: ({color, size}) => (
+            <MCIcon name="home-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={UserProfile}
+        options={{
+          headerShown: false,
+          title: 'Profile',
+          tabBarIcon: ({color, size}) => (
+            <MCIcon name="account-circle" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
 const App = () => {
   const Stack = createNativeStackNavigator();
   console.log('Thsi is consoleeeeeeeee');
@@ -28,14 +61,22 @@ const App = () => {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="RegisterType" component={RegisterationTypeScreen} />
         <Stack.Screen
+          name="Home"
+          component={MyTabs}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen name="RegisterType" component={RegisterationTypeScreen} />
+        {/* <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{
             headerShown: false,
           }}
-        />
+        /> */}
 
         <Stack.Screen
           name="LocalRegister"
