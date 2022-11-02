@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const ticketScreenStyle = StyleSheet.create({
   imageBg: {
-    width: 221,
+    width: 230,
     height: 500,
     marginTop: 30,
     borderRadius: 20,
@@ -25,7 +25,7 @@ const ticketScreenStyle = StyleSheet.create({
   },
   to: {
     color: 'black',
-    marginLeft: 85,
+    marginLeft: 70,
     marginTop: 5,
     fontWeight: '800',
   },
@@ -50,7 +50,7 @@ const ticketScreenStyle = StyleSheet.create({
     marginTop: 20,
     fontWeight: '600',
     color: 'grey',
-    marginLeft: 30,
+    marginLeft: 40,
   },
   dt1: {
     marginTop: 5,

@@ -40,7 +40,7 @@ const LocalRegisterScreen = () => {
           mode="outlined"
           activeOutlineColor="black"
           outlineColor="#9FA5AA"
-          placeholder="NIC"
+          placeholder="Password"
           style={localRegisterStyle.textInput}
           onChangeText={onChange}
         />

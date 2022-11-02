@@ -1,14 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useRef } from 'react';
-import { ImageBackground, Text, View } from 'react-native';
+import React, {useRef} from 'react';
+import {ImageBackground, Text, View} from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
-import { Button } from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import ViewShot from 'react-native-view-shot';
 import QRComponent from '../components/qrComponent/QRComponent';
 import ticketScreenStyle from './styles/TicketScreenStyles';
 
-const TicketScreen = ({ navigation, route }) => {
-  const { ticket } = route.params;
+const TicketScreen = ({navigation, route}) => {
+  const {ticket} = route.params;
   console.log(ticket);
   const ref = useRef();
 
@@ -44,7 +44,7 @@ const TicketScreen = ({ navigation, route }) => {
           }}>
           <ImageBackground
             style={ticketScreenStyle.imageBg}
-            imageStyle={{ borderRadius: 15 }}
+            imageStyle={{borderRadius: 15}}
             source={{
               uri: 'https://i.postimg.cc/WbxpKc5N/Untitled-design-2.png',
             }}>
@@ -63,7 +63,9 @@ const TicketScreen = ({ navigation, route }) => {
               </View>
               <View style={ticketScreenStyle.row}>
                 <Text style={ticketScreenStyle.dt1}>{ticket.ticketTime}</Text>
-                <Text style={ticketScreenStyle.seatNo2}>{ticket.routeNumber}</Text>
+                <Text style={ticketScreenStyle.seatNo2}>
+                  {ticket.routeNumber}
+                </Text>
               </View>
               <Text style={ticketScreenStyle.bsNumberTxt}>Bus Number</Text>
               <View style={ticketScreenStyle.nmbrPlate}>
@@ -71,7 +73,7 @@ const TicketScreen = ({ navigation, route }) => {
                   style={{
                     fontSize: 20,
                     fontWeight: '800',
-                    marginLeft: 45,
+                    marginLeft: 25,
                     marginTop: 10,
                   }}>
                   {ticket.ticketBus}

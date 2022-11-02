@@ -16,6 +16,7 @@ import ReloadAccount from './src/screens/ReloadAccount';
 import TicketScreen from './src/screens/TicketScreen';
 import TicketTypeScreen from './src/screens/TicketTypeScreen';
 import UserProfile from './src/screens/UserProfile';
+import RideNowScreen from './src/screens/RideNowScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -124,7 +125,7 @@ const App = () => {
           name="MapScreen"
           component={MapDirectionScreen}
           options={{
-            title: 'Map View',
+            title: 'View Route',
           }}
         />
         <Stack.Screen
@@ -146,6 +147,14 @@ const App = () => {
           component={UserProfile}
           options={{
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="RideNow"
+          component={RideNowScreen}
+          options={{
+            title: 'Scan Your QR',
+            // headerShown: false,
           }}
         />
       </Stack.Navigator>
