@@ -30,6 +30,7 @@ const HomeScreen = () => {
   };
   const navigateToBookLater = () => {
     // Function to navigate to the book later view.
+    navigation.navigate('BookNow');
   };
 
   return (
@@ -58,7 +59,7 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
       <View style={homeScreenStyle.card2}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={navigateToBookNow}>
           <HomeCard
             image="https://i.postimg.cc/Pfz3Rkt1/61943-time.gif"
             text="Do you want to book for later?"
