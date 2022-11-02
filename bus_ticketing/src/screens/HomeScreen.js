@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 
-import {AsyncStorage} from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import HomeCard from '../components/homeCard/HomeCard';
 import homeScreenStyle from './styles/HomeScreenStyles';
