@@ -18,6 +18,7 @@ const QRScreen = () => {
   const [item, setItem] = useState(initialItemState);
   const [productQRref, setProductQRref] = useState();
 
+  // QR Saving function
   const saveQrToDisk = async () => {
     if (Platform.OS === 'android') {
       await androidPermissionCheck();

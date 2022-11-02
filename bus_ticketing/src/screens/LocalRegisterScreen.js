@@ -46,11 +46,7 @@ const LocalRegisterScreen = () => {
         />
       </View>
 
-      <BoxPasswordStrengthDisplay
-        password={passsword}
-        boxColor="#A9A9A9"
-        // inputStyle={localRegisterStyle.textInput}
-      />
+      <BoxPasswordStrengthDisplay password={passsword} boxColor="#A9A9A9" />
       <Button
         mode="contained"
         style={localRegisterStyle.signupButton}

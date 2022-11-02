@@ -1,13 +1,15 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { Button } from 'react-native-paper';
+import {View, StyleSheet, Text} from 'react-native';
+import {Button} from 'react-native-paper';
 
 import busViewScreenStyle from './styles/BusViewStyles';
 
-const BusViewScreen = ({ navigation, route }) => {
-  const { all } = route.params;
+const BusViewScreen = ({navigation, route}) => {
+  // Get the passed params from previous screen
+  const {all} = route.params;
 
   const handleBookTicket = async () => {
+    // Creating the ticket object
     const ticket = {
       ticketType: 'booking',
       ticketPrice: all.ticketPrice,
@@ -17,8 +19,8 @@ const BusViewScreen = ({ navigation, route }) => {
       ticketBus: all.bus.busNumber,
       routeNumber: all.route,
     };
-
-    navigation.navigate('Payment', { ticket: ticket });
+    // Passing the ticket object to the payment view through navigation props.
+    navigation.navigate('Payment', {ticket: ticket});
   };
 
   return (
@@ -34,7 +36,9 @@ const BusViewScreen = ({ navigation, route }) => {
         <Text style={busViewScreenStyle.destination}>
           Destination Arrival TIme - {all.arivalTimeOnDestination}
         </Text>
-        <Text style={busViewScreenStyle.destination}>Seat Capacity - {all.bus.busCapacity}</Text>
+        <Text style={busViewScreenStyle.destination}>
+          Seat Capacity - {all.bus.busCapacity}
+        </Text>
       </View>
       <Text style={busViewScreenStyle.tPriceText}>Ticket Price</Text>
 

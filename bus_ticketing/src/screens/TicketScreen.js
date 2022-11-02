@@ -8,12 +8,16 @@ import QRComponent from '../components/qrComponent/QRComponent';
 import ticketScreenStyle from './styles/TicketScreenStyles';
 
 const TicketScreen = ({navigation, route}) => {
+  // Get data from previous route.
   const {ticket} = route.params;
   console.log(ticket);
+  // useRef hook to get the instance.
   const ref = useRef();
 
-  const takeSs = () => {
+  // function to save the ticket
+  const saveTicket = () => {
     ref.current.capture().then(uri => {
+      // Pass the base64 to the DB
       console.log('do something with ', uri);
     });
   };
@@ -91,7 +95,7 @@ const TicketScreen = ({navigation, route}) => {
         </DropShadow>
       </ViewShot>
       <Button
-        onPress={takeSs}
+        onPress={saveTicket}
         mode="contained"
         uppercase={false}
         style={ticketScreenStyle.sveBtn}>

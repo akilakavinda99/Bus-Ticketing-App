@@ -1,14 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Alert, Image, Text, View } from 'react-native';
+import {Alert, Image, Text, View} from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
-import { Button, RadioButton } from 'react-native-paper';
+import {Button, RadioButton} from 'react-native-paper';
 import API from '../redux/api/apiConnection';
 import ticketTypeScreenStyle from './styles/TicketTypeStyles';
 
-const TicketTypeScreen = ({ navigation, route }) => {
+const TicketTypeScreen = ({navigation, route}) => {
   const api = new API();
-  const { ticket, paymentMethod } = route.params;
+  const {ticket, paymentMethod} = route.params;
   const [checked, setChecked] = React.useState('ticket');
 
   const navigateToTicketType = async () => {
@@ -16,37 +16,35 @@ const TicketTypeScreen = ({ navigation, route }) => {
     ticket.paymentMethod = paymentMethod;
 
     const result = await api.post('ticket/new', ticket);
-
+    // Check the response code and display alerts according to it.
     if (result.data.resCode === 200) {
-      if (checked === 'ticket') { navigation.navigate('TicketScreen', { ticket: ticket }); }
-      else { navigation.navigate('QR', { ticket: ticket }); }
-
+      if (checked === 'ticket') {
+        navigation.navigate('TicketScreen', {ticket: ticket});
+      } else {
+        navigation.navigate('QR', {ticket: ticket});
+      }
     } else if (result.data.resCode === 401) {
       console.log('Error creating ticket');
-      Alert.alert(
-        'Error',
-        'Error creating ticket',
-        [{ text: 'OK', style: 'cancel' }]
-      );
-
+      Alert.alert('Error', 'Error creating ticket', [
+        {text: 'OK', style: 'cancel'},
+      ]);
     } else if (result.data.resCode === 402) {
       console.log('Insufficient account balance');
       Alert.alert(
         'Alert',
         'Insufficient account balance. Do you want to add money to your account?',
         [
-          { text: 'Cancel', style: 'cancel' },
-          { text: 'OK', onPress: () => navigation.navigate('ReloadAccount') },
-        ]
+          {text: 'Cancel', style: 'cancel'},
+          {text: 'OK', onPress: () => navigation.navigate('ReloadAccount')},
+        ],
       );
-
     } else {
       console.log('Error creating ticket');
       Alert.alert(
         'Error',
         'Error creating ticket',
-        [{ text: 'OK', style: 'cancel' }],
-        { cancelable: true }
+        [{text: 'OK', style: 'cancel'}],
+        {cancelable: true},
       );
     }
   };

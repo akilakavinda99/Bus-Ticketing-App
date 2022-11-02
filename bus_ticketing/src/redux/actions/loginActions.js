@@ -4,6 +4,8 @@ import {
   SEND_LOGIN_REQUEST,
 } from '../types/loginTypes';
 
+// Actions related to the Bus Search
+
 export const sendLoginRequestAction = data => ({
   type: SEND_LOGIN_REQUEST,
   data: data,

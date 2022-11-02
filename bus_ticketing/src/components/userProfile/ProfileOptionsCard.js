@@ -6,12 +6,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import userProfileStyles from '../../screens/styles/UserProfileStyles';
 
 const ProfileOptionsCard = props => {
-  //   const navigation = useNavigation();
-  // var screen =
-  //   const navigateTo = screen => {
-  //     navigation.navigate({name: screen});
-  //   };
-
   return (
     <TouchableNativeFeedback style={{borderRadius: 20}}>
       <View style={userProfileStyles.optionCard}>

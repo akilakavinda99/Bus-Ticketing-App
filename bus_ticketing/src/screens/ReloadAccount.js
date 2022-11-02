@@ -10,6 +10,7 @@ const ReloadAccount = () => {
   const [chkSaveCard, setChkSaveCard] = useState(false);
   const [chkConditions, setChkConditions] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
+  // Set initial details.
   const [cardDetails, setCardDetails] = useState({
     cardNumber: '',
     expiry: '',

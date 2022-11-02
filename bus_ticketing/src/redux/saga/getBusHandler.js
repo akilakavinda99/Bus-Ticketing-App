@@ -6,8 +6,9 @@ import {GET_BUS_REQUEST} from '../types/getBusTypes';
 
 const api = new API();
 const sendGetBusRequest = data =>
-  api.get('https://jsonplaceholder.typicode.com/todos/1');
+  api.get('https://csse-web-backend-heroku.com');
 
+// Generator function to call the api.
 function* handleGetBus(action) {
   try {
     const response = yield call(sendGetBusRequest, action.data);

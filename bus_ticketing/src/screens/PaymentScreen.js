@@ -6,10 +6,12 @@ import {Button, RadioButton} from 'react-native-paper';
 import paymentScreenStyle from './styles/PaymentStyles';
 
 const PaymentScreen = ({navigation, route}) => {
+  // Get data from previous screen.
   const {ticket} = route.params;
   const [paymentMethod, setPaymentMethod] = useState('credit');
 
   const navigateToTicketType = () => {
+    // Check the user selected payment method and navigate to ticket type screen.
     if (paymentMethod === 'account') {
       navigation.navigate('TicketType', {
         ticket: ticket,
@@ -19,9 +21,6 @@ const PaymentScreen = ({navigation, route}) => {
     }
   };
 
-  const navigateToMAp = () => {
-    navigation.navigate('MapScreen');
-  };
   return (
     <View style={paymentScreenStyle.mainView}>
       <View style={paymentScreenStyle.imageView}>
@@ -98,12 +97,6 @@ const PaymentScreen = ({navigation, route}) => {
         onPress={navigateToTicketType}>
         Proceed
       </Button>
-      {/* <Button
-        mode="contained"
-        // style={paymentScreenStyle.proceedBtn}
-        onPress={navigateToMAp}>
-        Map
-      </Button> */}
     </View>
   );
 };

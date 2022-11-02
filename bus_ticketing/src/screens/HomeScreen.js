@@ -11,12 +11,12 @@ import {AsyncStorage} from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import HomeCard from '../components/homeCard/HomeCard';
 import homeScreenStyle from './styles/HomeScreenStyles';
-import NavigationClass from '../utils/navigationFunctions';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const getValue = async () => {
     try {
+      // Get the userId from AsyncStorage
       const value = await AsyncStorage.getItem('userId');
       console.log(value);
     } catch (e) {

@@ -11,6 +11,7 @@ import {
 import getInitialLongitudeDelta from '../utils/getInitialLongitude';
 
 const MapDirectionScreen = () => {
+  // Get initial longitude delta from function.
   const INITIAL_LONGITUDE_DELTA = getInitialLongitudeDelta();
   const origin = {latitude: 6.0329, longitude: 80.2168};
   const destination = {latitude: 6.9271, longitude: 79.8612};

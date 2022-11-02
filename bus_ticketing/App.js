@@ -18,8 +18,10 @@ import TicketTypeScreen from './src/screens/TicketTypeScreen';
 import UserProfile from './src/screens/UserProfile';
 import RideNowScreen from './src/screens/RideNowScreen';
 
+// Instanciate bottom tab.
 const Tab = createBottomTabNavigator();
 
+// Bottom Navigation Component.
 function MyTabs() {
   return (
     <Tab.Navigator initialRouteName="HomeScreen">
@@ -51,7 +53,6 @@ function MyTabs() {
 
 const App = () => {
   const Stack = createNativeStackNavigator();
-  console.log('Thsi is consoleeeeeeeee');
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
@@ -71,13 +72,6 @@ const App = () => {
         />
 
         <Stack.Screen name="RegisterType" component={RegisterationTypeScreen} />
-        {/* <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            headerShown: false,
-          }}
-        /> */}
 
         <Stack.Screen
           name="LocalRegister"
@@ -154,7 +148,6 @@ const App = () => {
           component={RideNowScreen}
           options={{
             title: 'Scan Your QR',
-            // headerShown: false,
           }}
         />
       </Stack.Navigator>
