@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {View, StyleSheet, Text} from 'react-native';
-import {Button, TextInput} from 'react-native-paper';
+import { View, StyleSheet, Text } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
 import busViewScreenStyle from './styles/BusViewStyles';
 
-const BusViewScreen = ({navigation, route}) => {
-  const {all} = route.params;
+const BusViewScreen = ({ navigation, route }) => {
+  const { all } = route.params;
   console.log(all);
   return (
     <View>
@@ -15,16 +15,16 @@ const BusViewScreen = ({navigation, route}) => {
       </View>
       <View style={busViewScreenStyle.textView}>
         <Text style={busViewScreenStyle.arrivalTime}>
-          Arrival Time- {all.arivalTimeOnDestination}
+          Arrival Time- {all.arivalTimeOnStart}
         </Text>
         <Text style={busViewScreenStyle.destination}>
-          Destination Arrival TIme -
+          Destination Arrival TIme - {all.arivalTimeOnDestination}
         </Text>
-        <Text style={busViewScreenStyle.destination}>Seat Capacity - </Text>
+        <Text style={busViewScreenStyle.destination}>Seat Capacity - {all.bus.busCapacity}</Text>
       </View>
       <Text style={busViewScreenStyle.tPriceText}>Ticket Price</Text>
 
-      <Text style={busViewScreenStyle.tPrice}>100 LKR</Text>
+      <Text style={busViewScreenStyle.tPrice}>{all.ticketPrice} LKR</Text>
       <View>
         <Button style={busViewScreenStyle.bookButton} mode="contained">
           Book Ticket
