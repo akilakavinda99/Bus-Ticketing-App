@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const ticketTypeScreenStyle = StyleSheet.create({
   mainView: {
@@ -20,18 +20,19 @@ const ticketTypeScreenStyle = StyleSheet.create({
     height: 40,
     marginLeft: 65,
     marginTop: 30,
+    paddingRight: 10,
     backgroundColor: 'white',
     borderRadius: 10,
   },
   creditText: {
     marginTop: 8,
-    marginLeft: 0,
     fontWeight: '600',
     marginRight: 20,
+    flexGrow: 1,
   },
   creditText2: {
+    flexGrow: 1,
     marginTop: 8,
-    marginLeft: 20,
     fontWeight: '600',
     marginRight: 53,
   },

@@ -111,6 +111,8 @@ const BookNowScreen = () => {
         ) : (
           <View>
             {availableBuses.map(function (f, i) {
+              f.startLocation = start;
+              f.destination = end;
               return (
                 <BusCard
                   key={i}
