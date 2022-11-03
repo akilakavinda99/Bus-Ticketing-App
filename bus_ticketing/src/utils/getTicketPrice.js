@@ -9,4 +9,4 @@ const getTicketPrice = (prices, busType) => {
   }
 };
 
-export default getTicketPrice;
+module.exports = getTicketPrice;
