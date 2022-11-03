@@ -1,10 +1,8 @@
-import {useNavigation} from '@react-navigation/native';
-import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
-import {Button, Checkbox, TextInput} from 'react-native-paper';
-import {useDispatch, useSelector} from 'react-redux';
-import {AsyncStorage} from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Checkbox, TextInput } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import API from '../redux/api/apiConnection';
 import loginStyle from './styles/LoginScreenStyles';
 
@@ -21,9 +19,15 @@ const LoginScreen = () => {
   };
 
   // Creating login object
+  // const loginObject = {
+  //   username: userName,
+  //   password: password,
+  // };
+
+  // test login credentials
   const loginObject = {
-    username: userName,
-    password: password,
+    username: 'user@gmail.com',
+    password: '12345',
   };
 
   // Create API object from API class.
@@ -35,7 +39,7 @@ const LoginScreen = () => {
     // Set the userId to Async Storage.
     await AsyncStorage.setItem('userId', result.data._id);
     setLoading(false);
-    console.log('this is results', result.data);
+    // console.log('this is results', result.data);
     navigation.navigate('Home');
   };
 
