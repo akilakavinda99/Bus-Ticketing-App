@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {Image, Text, View} from 'react-native';
-import DropShadow from 'react-native-drop-shadow';
+// import DropShadow from 'react-native-drop-shadow';
 import {Button, RadioButton} from 'react-native-paper';
 import paymentScreenStyle from './styles/PaymentStyles';
 
@@ -48,7 +48,7 @@ const PaymentScreen = ({navigation, route}) => {
         }
       </View>
       <View>
-        <DropShadow
+        {/* <DropShadow
           style={{
             shadowColor: '#000',
             shadowOffset: {
@@ -57,7 +57,7 @@ const PaymentScreen = ({navigation, route}) => {
             },
             shadowOpacity: 0.5,
             shadowRadius: 5,
-          }}>
+          }}> */}
           <View style={paymentScreenStyle.rowView}>
             <Button icon="credit-card" />
 
@@ -68,8 +68,8 @@ const PaymentScreen = ({navigation, route}) => {
               onPress={() => setPaymentMethod('credit')}
             />
           </View>
-        </DropShadow>
-        <DropShadow
+        {/* </DropShadow> */}
+        {/* <DropShadow
           style={{
             shadowColor: '#000',
             shadowOffset: {
@@ -78,7 +78,7 @@ const PaymentScreen = ({navigation, route}) => {
             },
             shadowOpacity: 0.5,
             shadowRadius: 5,
-          }}>
+          }}> */}
           <View style={paymentScreenStyle.rowView}>
             <Button icon="account" />
 
@@ -89,7 +89,7 @@ const PaymentScreen = ({navigation, route}) => {
               onPress={() => setPaymentMethod('account')}
             />
           </View>
-        </DropShadow>
+        {/* </DropShadow> */}
       </View>
       <Button
         mode="contained"

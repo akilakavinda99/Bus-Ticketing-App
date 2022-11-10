@@ -1,14 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Alert, Image, Text, View} from 'react-native';
-import DropShadow from 'react-native-drop-shadow';
-import {Button, RadioButton} from 'react-native-paper';
+import { Alert, Image, Text, View } from 'react-native';
+// import DropShadow from 'react-native-drop-shadow';
+import { Button, RadioButton } from 'react-native-paper';
 import API from '../redux/api/apiConnection';
 import ticketTypeScreenStyle from './styles/TicketTypeStyles';
 
-const TicketTypeScreen = ({navigation, route}) => {
+const TicketTypeScreen = ({ navigation, route }) => {
   const api = new API();
-  const {ticket, paymentMethod} = route.params;
+  const { ticket, paymentMethod } = route.params;
   const [checked, setChecked] = React.useState('ticket');
 
   const navigateToTicketType = async () => {
@@ -19,14 +19,14 @@ const TicketTypeScreen = ({navigation, route}) => {
     // Check the response code and display alerts according to it.
     if (result.data.resCode === 200) {
       if (checked === 'ticket') {
-        navigation.navigate('TicketScreen', {ticket: ticket});
+        navigation.navigate('TicketScreen', { ticket: ticket });
       } else {
-        navigation.navigate('QR', {ticket: ticket});
+        navigation.navigate('QR', { ticket: ticket });
       }
     } else if (result.data.resCode === 401) {
       console.log('Error creating ticket');
       Alert.alert('Error', 'Error creating ticket', [
-        {text: 'OK', style: 'cancel'},
+        { text: 'OK', style: 'cancel' },
       ]);
     } else if (result.data.resCode === 402) {
       console.log('Insufficient account balance');
@@ -34,8 +34,8 @@ const TicketTypeScreen = ({navigation, route}) => {
         'Alert',
         'Insufficient account balance. Do you want to add money to your account?',
         [
-          {text: 'Cancel', style: 'cancel'},
-          {text: 'OK', onPress: () => navigation.navigate('ReloadAccount')},
+          { text: 'Cancel', style: 'cancel' },
+          { text: 'OK', onPress: () => navigation.navigate('ReloadAccount') },
         ],
       );
     } else {
@@ -43,8 +43,8 @@ const TicketTypeScreen = ({navigation, route}) => {
       Alert.alert(
         'Error',
         'Error creating ticket',
-        [{text: 'OK', style: 'cancel'}],
-        {cancelable: true},
+        [{ text: 'OK', style: 'cancel' }],
+        { cancelable: true },
       );
     }
   };
@@ -76,7 +76,7 @@ const TicketTypeScreen = ({navigation, route}) => {
         }
       </View>
       <View>
-        <DropShadow
+        {/* <DropShadow
           style={{
             shadowColor: '#000',
             shadowOffset: {
@@ -85,18 +85,18 @@ const TicketTypeScreen = ({navigation, route}) => {
             },
             shadowOpacity: 0.5,
             shadowRadius: 5,
-          }}>
-          <View style={ticketTypeScreenStyle.rowView}>
-            <Button icon="ticket" />
-            <Text style={ticketTypeScreenStyle.creditText}>Get a ticket</Text>
-            <RadioButton
-              value="ticket"
-              status={checked === 'ticket' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked('ticket')}
-            />
-          </View>
-        </DropShadow>
-        <DropShadow
+          }}> */}
+        <View style={ticketTypeScreenStyle.rowView}>
+          <Button icon="ticket" />
+          <Text style={ticketTypeScreenStyle.creditText}>Get a ticket</Text>
+          <RadioButton
+            value="ticket"
+            status={checked === 'ticket' ? 'checked' : 'unchecked'}
+            onPress={() => setChecked('ticket')}
+          />
+        </View>
+        {/* </DropShadow> */}
+        {/* <DropShadow
           style={{
             shadowColor: '#000',
             shadowOffset: {
@@ -105,17 +105,17 @@ const TicketTypeScreen = ({navigation, route}) => {
             },
             shadowOpacity: 0.5,
             shadowRadius: 5,
-          }}>
-          <View style={ticketTypeScreenStyle.rowView}>
-            <Button icon="qrcode" />
-            <Text style={ticketTypeScreenStyle.creditText2}> Get a QR</Text>
-            <RadioButton
-              value="qr"
-              status={checked === 'qr' ? 'checked' : 'unchecked'}
-              onPress={() => setChecked('qr')}
-            />
-          </View>
-        </DropShadow>
+          }}> */}
+        <View style={ticketTypeScreenStyle.rowView}>
+          <Button icon="qrcode" />
+          <Text style={ticketTypeScreenStyle.creditText2}> Get a QR</Text>
+          <RadioButton
+            value="qr"
+            status={checked === 'qr' ? 'checked' : 'unchecked'}
+            onPress={() => setChecked('qr')}
+          />
+        </View>
+        {/* </DropShadow> */}
       </View>
       <Button
         mode="contained"

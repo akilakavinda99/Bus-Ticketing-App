@@ -2,7 +2,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import DropShadow from 'react-native-drop-shadow';
+// import DropShadow from 'react-native-drop-shadow';
 import { Chip } from 'react-native-paper';
 import busCardStyles from './BusCardStyles';
 
@@ -17,7 +17,7 @@ const BusCard = props => {
 
   return (
     <TouchableOpacity onPress={navigateToBusView}>
-      <DropShadow
+      {/* <DropShadow
         style={{
           shadowColor: '#000',
           shadowOffset: {
@@ -26,7 +26,7 @@ const BusCard = props => {
           },
           shadowOpacity: 0.5,
           shadowRadius: 5,
-        }}>
+        }}> */}
         <View style={busCardStyles.mainView}>
           <View style={busCardStyles.row}>
             <Text style={busCardStyles.aTime}>
@@ -61,7 +61,7 @@ const BusCard = props => {
             </View>
           </View>
         </View>
-      </DropShadow>
+      {/* </DropShadow> */}
     </TouchableOpacity>
   );
 };
