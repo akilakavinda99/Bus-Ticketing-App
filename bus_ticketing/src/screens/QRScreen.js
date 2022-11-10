@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button, View, Platform, ToastAndroid} from 'react-native';
 import QRComponent from '../components/qrComponent/QRComponent';
 import RNFS from 'react-native-fs';
-import CameraRoll from '@react-native-community/cameraroll';
+// import CameraRoll from '@react-native-community/cameraroll';
 import {err} from 'react-native-svg/lib/typescript/xml';
 import androidPermissionCheck from '../utils/permissionCheck';
 
@@ -31,7 +31,7 @@ const QRScreen = () => {
         RNFS.writeFile(filePath, data, 'base64')
           .then(success => {
             console.log(success);
-            return CameraRoll.save(filePath, 'photo');
+            // return CameraRoll.save(filePath, 'photo');
           })
           .then(() => {
             ToastAndroid.show('QRCode saved to gallery', ToastAndroid.LONG);

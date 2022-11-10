@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useRef} from 'react';
 import {ImageBackground, Text, View} from 'react-native';
-import DropShadow from 'react-native-drop-shadow';
+// import DropShadow from 'react-native-drop-shadow';
 import {Button} from 'react-native-paper';
 import ViewShot from 'react-native-view-shot';
 import QRComponent from '../components/qrComponent/QRComponent';
@@ -36,7 +36,7 @@ const TicketScreen = ({navigation, route}) => {
           quality: 0.9,
           result: 'data-uri',
         }}>
-        <DropShadow
+        {/* <DropShadow
           style={{
             shadowColor: '#000',
             shadowOffset: {
@@ -45,7 +45,7 @@ const TicketScreen = ({navigation, route}) => {
             },
             shadowOpacity: 0.5,
             shadowRadius: 5,
-          }}>
+          }}> */}
           <ImageBackground
             style={ticketScreenStyle.imageBg}
             imageStyle={{borderRadius: 15}}
@@ -92,7 +92,7 @@ const TicketScreen = ({navigation, route}) => {
               </View>
             </View>
           </ImageBackground>
-        </DropShadow>
+        {/* </DropShadow> */}
       </ViewShot>
       <Button
         onPress={saveTicket}
