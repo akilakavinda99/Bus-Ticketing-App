@@ -1,7 +1,7 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
-import { Button, Checkbox, TextInput } from 'react-native-paper';
+import React, {useState} from 'react';
+import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {Button, Checkbox, TextInput} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import API from '../redux/api/apiConnection';
 import loginStyle from './styles/LoginScreenStyles';
@@ -18,28 +18,24 @@ const LoginScreen = () => {
     navigation.navigate('RegisterType');
   };
 
-  // Creating login object
-  // const loginObject = {
-  //   username: userName,
-  //   password: password,
-  // };
-
-  // test login credentials
+  // Create login object to pass to the body of post req.
   const loginObject = {
-    username: 'user@gmail.com',
-    password: '12345',
+    username: userName,
+    password: password,
   };
 
   // Create API object from API class.
   const api = new API();
+
   // Send Login Request Function.
   const sendLoginRequest = async data => {
     setLoading(true);
     const result = await api.post('main/login', loginObject);
+
     // Set the userId to Async Storage.
     await AsyncStorage.setItem('userId', result.data._id);
     setLoading(false);
-    // console.log('this is results', result.data);
+
     navigation.navigate('Home');
   };
 

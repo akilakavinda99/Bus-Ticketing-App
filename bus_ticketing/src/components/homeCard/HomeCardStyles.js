@@ -12,6 +12,7 @@ const homeCardStyles = StyleSheet.create({
     height: 100,
     backgroundColor: 'white',
     borderRadius: 20,
+    elevation:5
   },
   text: {
     marginTop: 40,

@@ -10,11 +10,13 @@ import {
 } from '../constants/map.constants';
 import getInitialLongitudeDelta from '../utils/getInitialLongitude';
 
-const MapDirectionScreen = () => {
+const MapDirectionScreen = ({route}) => {
   // Get initial longitude delta from function.
   const INITIAL_LONGITUDE_DELTA = getInitialLongitudeDelta();
-  const origin = {latitude: 6.0329, longitude: 80.2168};
-  const destination = {latitude: 6.9271, longitude: 79.8612};
+  const {endLon, startLon} = route.params;
+  console.log(endLon);
+  const origin = startLon;
+  const destination = endLon;
   return (
     <View>
       <MapView

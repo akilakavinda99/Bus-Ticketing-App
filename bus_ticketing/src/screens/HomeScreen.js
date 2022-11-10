@@ -18,7 +18,7 @@ const HomeScreen = () => {
     try {
       // Get the userId from AsyncStorage
       const value = await AsyncStorage.getItem('userId');
-      console.log(value);
+      console.log('this is di', value);
     } catch (e) {
       console.log(e);
     }

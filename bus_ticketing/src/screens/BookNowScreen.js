@@ -34,10 +34,14 @@ const BookNowScreen = () => {
     };
     setInitial(false);
     setLoading(true);
-
-    const result = await api.post('timetable/getBusByRoute', obj);
-    setTicketPrices(result.data.ticketPrice);
-    setAvailableBuses(result.data.busTimes);
+    try {
+      const result = await api.post('timetable/getBusByRoute', obj);
+      setTicketPrices(result.data.ticketPrice);
+      setAvailableBuses(result.data.busTimes);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
 
     setLoading(false);
   };
@@ -93,7 +97,7 @@ const BookNowScreen = () => {
           <View style={bookNowScreenStyle.activityStyle}>
             <ActivityIndicator size="large" />
           </View>
-        ) : availableBuses == 0 ? (
+        ) : availableBuses.length == 0 ? (
           <NoResults />
         ) : (
           <View>

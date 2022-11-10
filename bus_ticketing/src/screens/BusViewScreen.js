@@ -7,6 +7,7 @@ import busViewScreenStyle from './styles/BusViewStyles';
 const BusViewScreen = ({navigation, route}) => {
   // Get the passed params from previous screen
   const {all} = route.params;
+  console.log(all.routeLonLat);
 
   const handleBookTicket = async () => {
     // Creating the ticket object
@@ -21,6 +22,13 @@ const BusViewScreen = ({navigation, route}) => {
     };
     // Passing the ticket object to the payment view through navigation props.
     navigation.navigate('Payment', {ticket: ticket});
+  };
+
+  const navigateToRouteView = () => {
+    navigation.navigate('MapScreen', {
+      endLon: all.routeLonLat.endLonLat,
+      startLon: all.routeLonLat.startLonLat,
+    });
   };
 
   return (
@@ -50,7 +58,10 @@ const BusViewScreen = ({navigation, route}) => {
           onPress={handleBookTicket}>
           Book Ticket
         </Button>
-        <Button style={busViewScreenStyle.bookButton} mode="contained">
+        <Button
+          style={busViewScreenStyle.bookButton}
+          mode="contained"
+          onPress={navigateToRouteView}>
           View Route
         </Button>
       </View>
