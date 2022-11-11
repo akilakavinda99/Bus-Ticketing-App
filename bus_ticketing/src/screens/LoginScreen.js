@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Button, Checkbox, TextInput } from 'react-native-paper';
+import React, {useState} from 'react';
+import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {Button, Checkbox, TextInput} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import API from '../redux/api/apiConnection';
 import loginStyle from './styles/LoginScreenStyles';
@@ -65,7 +65,12 @@ const LoginScreen = () => {
   return (
     <View style={loginStyle.mainView}>
       {loading ? (
-        <ActivityIndicator />
+        <ActivityIndicator
+          size="large"
+          style={{
+            marginTop: 300,
+          }}
+        />
       ) : (
         <View style={loginStyle.view}>
           <Text style={loginStyle.loginText}>Login</Text>
@@ -99,14 +104,15 @@ const LoginScreen = () => {
             style={loginStyle.textInput}
             onChangeText={value => setPassword(value)}
           />
-          <Text style={{
-            alignSelf: 'center',
-            color: 'red',
-            marginBottom: 10,
-            marginLeft: 10,
-            fontSize: 14,
-            fontWeight: 'bold',
-          }}>
+          <Text
+            style={{
+              alignSelf: 'center',
+              color: 'red',
+              marginBottom: 10,
+              marginLeft: 10,
+              fontSize: 14,
+              fontWeight: 'bold',
+            }}>
             {formErrors}
           </Text>
           <View style={loginStyle.checkbox}>

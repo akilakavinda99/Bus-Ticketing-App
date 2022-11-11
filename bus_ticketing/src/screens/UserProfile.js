@@ -3,11 +3,49 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {ImageBackground, Text, TouchableOpacity, View} from 'react-native';
 import {Divider} from 'react-native-paper';
+import {useIsFocused} from '@react-navigation/native';
 import ProfileOptionsCard from '../components/userProfile/ProfileOptionsCard';
+import getUserId from '../utils/getUserId';
+import API from '../redux/api/apiConnection';
 import userProfileStyles from './styles/UserProfileStyles';
 
 const UserProfile = () => {
+  const isFocused = useIsFocused();
+
   const navigation = useNavigation();
+
+  const [userId, setUserId] = useState(null);
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  // Setting the userId
+  useEffect(() => {
+    getUserId().then(res => {
+      setUserId(res);
+    });
+  }, []);
+
+  useEffect(() => {
+    const getUserProfile = async () => {
+      const api = new API();
+      try {
+        const result = await api.get(`user/userDetails/${userId}`);
+        console.log('Ressss', result.data.userDetails);
+
+        setUser(result.data.userDetails);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+
+        console.log('rer', error);
+      }
+    };
+    if (userId != null) {
+      setLoading(true);
+      getUserProfile();
+    }
+  }, [userId, isFocused]);
+
   const navigateTO = () => {
     console.log('SAdsd');
     navigation.navigate('QR');
@@ -37,7 +75,7 @@ const UserProfile = () => {
             fontSize: 20,
             marginTop: 10,
           }}>
-          Akila Kavinda
+          {user.name}
         </Text>
         <Text
           style={{
@@ -46,7 +84,7 @@ const UserProfile = () => {
             fontSize: 12,
             marginTop: 10,
           }}>
-          akila123@gmail.com
+          {user.email}
         </Text>
       </View>
       <View style={userProfileStyles.cardView}>
