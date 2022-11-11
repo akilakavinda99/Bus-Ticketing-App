@@ -89,20 +89,26 @@ const ReloadAccount = ({ navigation, route }) => {
   // check if the card number, expiry and cvc are valid
   // check if the conditions checkbox is checked
   useEffect(() => {
-
     if (Object.keys(cardErrors).length === 0 && isSubmit && chkConditions) {
-      // convert amount in to number
-
-      api.post('user/reloadaccount', { userID: userId, amount: Number(amount) })
-        .then(res => {
-          navigation.replace('UserProfile');
-          setIsSubmit(false);
-        }).catch(err => {
-          console.log(err.response);
-          setIsSubmit(false);
-        });
+      navigation.navigate('TicketType', {
+        ticket: ticket,
+        paymentMethod: 'account',
+      });
     } else {
-      setIsSubmit(false);
+      if (Object.keys(cardErrors).length === 0 && isSubmit && chkConditions) {
+        // convert amount in to number
+
+        api.post('user/reloadaccount', { userID: userId, amount: Number(amount) })
+          .then(res => {
+            navigation.replace('UserProfile');
+            setIsSubmit(false);
+          }).catch(err => {
+            console.log(err.response);
+            setIsSubmit(false);
+          });
+      } else {
+        setIsSubmit(false);
+      }
     }
   }, [cardErrors, isSubmit, chkConditions]);
 
@@ -152,12 +158,12 @@ const ReloadAccount = ({ navigation, route }) => {
           outlineColor="#9FA5AA"
           keyboardType="numeric"
           maxLength={16}
-          error={amountError}
+          error={fromPayment ? null : amountError}
           style={reloadAccountStyle.textInput}
           onChangeText={value => setAmount(value)}
         />
         <Text style={reloadAccountStyle.errorText}>
-          {amountError}
+          {fromPayment ? null : amountError}
         </Text>
         {/* Field to enter the card details (card number, expiry and cvc) */}
         <TextInput
