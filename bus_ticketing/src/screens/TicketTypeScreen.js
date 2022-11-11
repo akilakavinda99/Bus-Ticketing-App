@@ -47,7 +47,7 @@ const TicketTypeScreen = ({navigation, route}) => {
         'Insufficient account balance. Do you want to add money to your account?',
         [
           {text: 'Cancel', style: 'cancel'},
-          {text: 'OK', onPress: () => navigation.navigate('ReloadAccount')},
+          {text: 'OK', onPress: () => navigation.navigate('ReloadAccount', {ticket: ticket, fromPayment: true})},
         ],
       );
     } else {
