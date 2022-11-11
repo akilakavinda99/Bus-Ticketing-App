@@ -1,16 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
-import {Text, View, ImageBackground} from 'react-native';
-import {Button, Checkbox, Divider, TextInput} from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import { Text, View, ImageBackground, ScrollView } from 'react-native';
+import { Button, Checkbox, Divider, TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
+import API from '../redux/api/apiConnection';
+import getUserId from '../utils/getUserId';
 import reloadAccountStyle from './styles/ReloadAccountStyles';
-import {cardValidation} from './validations/ReloadAccountValidations';
+import { cardValidation } from './validations/ReloadAccountValidations';
 
-const ReloadAccount = ({route}) => {
-  const {ticket, fromPayment} = route.params;
+const ReloadAccount = ({ navigation, route }) => {
+  const api = new API();
+  const numberPattern = /^[0-9]*$/;
+  const [userId, setUserId] = useState(null);
+  const { ticket, fromPayment } = route.params;
   const [chkSaveCard, setChkSaveCard] = useState(false);
   const [chkConditions, setChkConditions] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
+  const [accountBalance, setAccountBalance] = useState(0);
+  const [amountError, setAmountError] = useState('');
+  const [amount, setAmount] = useState('');
+
   // Set initial details.
   const [cardDetails, setCardDetails] = useState({
     cardNumber: '',
@@ -24,6 +34,15 @@ const ReloadAccount = ({route}) => {
 
   // execute when the reload button is clicked
   const handleReload = () => {
+    if (!amount) {
+      setAmountError('Please enter an amount');
+    } else if (!numberPattern.test(amount)) {
+      setAmountError('Amount can only contain numbers');
+    } else if (Number(amount) < 1) {
+      setAmountError('Amount must be greater than 0');
+    } else {
+      setAmountError('');
+    }
     // get errors on card number, expiry and cvc
     const errors = cardValidation(cardDetails);
     setCardErrors(errors);
@@ -34,13 +53,12 @@ const ReloadAccount = ({route}) => {
     } else {
       setErrorChkConditions('');
     }
-
     setIsSubmit(true);
   };
 
   const handleExpiryChange = text => {
     if (text.length === 2) {
-      setCardDetails({...cardDetails, expiry: text + '/'});
+      setCardDetails({ ...cardDetails, expiry: text + '/' });
     } else if (text.length > 2 && text[2] !== '/') {
       setCardDetails({
         ...cardDetails,
@@ -49,19 +67,53 @@ const ReloadAccount = ({route}) => {
     }
   };
 
+  // Setting the userId
+  useEffect(() => {
+    getUserId().then(res => {
+      setUserId(res);
+      api.get(`user/userDetails/${res}`)
+        .then(resUser => {
+          // devide account balance in to two parts 
+          // const accountBalance = resUser.data.userDetails.accountBalance.toString().split('.');
+          // console.log(accountBalance);
+          setAccountBalance(resUser.data.userDetails.accountBalance);
+
+        }).catch(err => {
+          console.log(err);
+        });
+    });
+  }, []);
+
+
   // to handle the reload
   // check if the card number, expiry and cvc are valid
   // check if the conditions checkbox is checked
   useEffect(() => {
     if (Object.keys(cardErrors).length === 0 && isSubmit && chkConditions) {
-      console.log('success');
+      navigation.navigate('TicketType', {
+        ticket: ticket,
+        paymentMethod: 'account',
+      });
     } else {
-      setIsSubmit(false);
+      if (Object.keys(cardErrors).length === 0 && isSubmit && chkConditions) {
+        // convert amount in to number
+
+        api.post('user/reloadaccount', { userID: userId, amount: Number(amount) })
+          .then(res => {
+            navigation.replace('UserProfile');
+            setIsSubmit(false);
+          }).catch(err => {
+            console.log(err.response);
+            setIsSubmit(false);
+          });
+      } else {
+        setIsSubmit(false);
+      }
     }
   }, [cardErrors, isSubmit, chkConditions]);
 
   return (
-    <View>
+    <ScrollView>
       {/* Show the account balance in the top of the page */}
       <View
         style={{
@@ -83,7 +135,7 @@ const ReloadAccount = ({route}) => {
                   fontSize: 30,
                   fontWeight: 'bold',
                 }}>
-                50
+                {accountBalance}
               </Text>
               <Text
                 style={{
@@ -100,20 +152,18 @@ const ReloadAccount = ({route}) => {
         <TextInput
           mode="outlined"
           activeOutlineColor="#9FA5AA"
-          value={fromPayment ? ticket.ticketPrice : ''}
+          value={fromPayment ? ticket.ticketPrice : amount}
           editable={fromPayment ? false : true}
           label="Amount"
           outlineColor="#9FA5AA"
           keyboardType="numeric"
           maxLength={16}
-          error={cardErrors.cardNumber}
+          error={fromPayment ? null : amountError}
           style={reloadAccountStyle.textInput}
-          onChangeText={value =>
-            setCardDetails({...cardDetails, cardNumber: value})
-          }
+          onChangeText={value => setAmount(value)}
         />
         <Text style={reloadAccountStyle.errorText}>
-          {cardErrors.cardNumber}
+          {fromPayment ? null : amountError}
         </Text>
         {/* Field to enter the card details (card number, expiry and cvc) */}
         <TextInput
@@ -126,7 +176,7 @@ const ReloadAccount = ({route}) => {
           error={cardErrors.cardNumber}
           style={reloadAccountStyle.textInput}
           onChangeText={value =>
-            setCardDetails({...cardDetails, cardNumber: value})
+            setCardDetails({ ...cardDetails, cardNumber: value })
           }
         />
         <Text style={reloadAccountStyle.errorText}>
@@ -137,7 +187,7 @@ const ReloadAccount = ({route}) => {
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
-          <View style={{width: '45%'}}>
+          <View style={{ width: '45%' }}>
             <TextInput
               mode="outlined"
               activeOutlineColor="#9FA5AA"
@@ -149,7 +199,7 @@ const ReloadAccount = ({route}) => {
               style={reloadAccountStyle.textInput}
               value={cardDetails.expiry}
               onChangeText={value => {
-                setCardDetails({...cardDetails, expiry: value});
+                setCardDetails({ ...cardDetails, expiry: value });
                 handleExpiryChange(value);
               }}
             />
@@ -157,7 +207,7 @@ const ReloadAccount = ({route}) => {
               {cardErrors.cardExpiry}
             </Text>
           </View>
-          <View style={{width: '40%'}}>
+          <View style={{ width: '40%' }}>
             <TextInput
               mode="outlined"
               activeOutlineColor="#9FA5AA"
@@ -170,7 +220,7 @@ const ReloadAccount = ({route}) => {
               right={<TextInput.Icon icon="eye-off" />}
               style={reloadAccountStyle.textInput}
               onChangeText={value =>
-                setCardDetails({...cardDetails, cvc: value})
+                setCardDetails({ ...cardDetails, cvc: value })
               }
             />
             <Text style={reloadAccountStyle.errorText}>{cardErrors.cvc}</Text>
@@ -269,7 +319,7 @@ const ReloadAccount = ({route}) => {
           Reload
         </Button>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
