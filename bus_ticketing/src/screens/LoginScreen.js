@@ -1,16 +1,19 @@
-import React, {useState} from 'react';
-import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {Button, Checkbox, TextInput} from 'react-native-paper';
+/* eslint-disable react-native/no-inline-styles */
+import React, { useState } from 'react';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Button, Checkbox, TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import API from '../redux/api/apiConnection';
 import loginStyle from './styles/LoginScreenStyles';
 
 const LoginScreen = () => {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [formErrors, setFormErrors] = useState('');
 
   const navigation = useNavigation();
   // Navigate to register type screen
@@ -30,13 +33,33 @@ const LoginScreen = () => {
   // Send Login Request Function.
   const sendLoginRequest = async data => {
     setLoading(true);
-    const result = await api.post('main/login', loginObject);
 
-    // Set the userId to Async Storage.
-    await AsyncStorage.setItem('userId', result.data._id);
-    setLoading(false);
+    if (!userName && !password) {
+      setFormErrors('Please enter email and password');
+      setLoading(false);
+    } else if (!userName) {
+      setFormErrors('Please enter email');
+      setLoading(false);
+    } else if (!emailPattern.test(userName)) {
+      setFormErrors('Invalid email address');
+      setLoading(false);
+    } else if (!password) {
+      setFormErrors('Please enter password');
+      setLoading(false);
+    } else {
+      try {
+        const result = await api.post('main/login', loginObject);
 
-    navigation.navigate('Home');
+        if (result.status === 200) {
+          await AsyncStorage.setItem('userId', result.data._id);
+          navigation.navigate('Home');
+          setLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    }
   };
 
   return (
@@ -62,6 +85,7 @@ const LoginScreen = () => {
             activeOutlineColor="black"
             outlineColor="#9FA5AA"
             placeholder="Email"
+            keyboardType="email-address"
             style={loginStyle.textInput}
             onChangeText={value => setUserName(value)}
           />
@@ -71,9 +95,20 @@ const LoginScreen = () => {
             activeOutlineColor="black"
             outlineColor="#9FA5AA"
             placeholder="Password"
+            secureTextEntry={true}
             style={loginStyle.textInput}
             onChangeText={value => setPassword(value)}
           />
+          <Text style={{
+            alignSelf: 'center',
+            color: 'firebrick',
+            marginBottom: 10,
+            marginLeft: 10,
+            fontSize: 14,
+            fontWeight: 'bold',
+          }}>
+            {formErrors}
+          </Text>
           <View style={loginStyle.checkbox}>
             <Checkbox
               status={checked ? 'checked' : 'unchecked'}
