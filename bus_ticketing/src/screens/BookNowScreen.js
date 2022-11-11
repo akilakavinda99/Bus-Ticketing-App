@@ -37,6 +37,7 @@ const BookNowScreen = () => {
     try {
       const result = await api.post('timetable/getBusByRoute', obj);
       setTicketPrices(result.data.ticketPrice);
+      // console.log(result.data);
       setAvailableBuses(result.data.busTimes);
       setLoading(false);
     } catch (error) {

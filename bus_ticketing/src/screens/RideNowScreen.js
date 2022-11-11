@@ -7,23 +7,14 @@ import getUserId from '../utils/getUserId';
 
 const RideNowScreen = () => {
   const [userId, setUserId] = useState(null);
-  // var userId = null;
-  const initialItemState = {
-    ticketID: 'test1234',
-    userName: 'test',
-    From: 'Galle',
-    to: 'Mathaara',
-    amountPayed: '200',
-  };
+
+  // Setting the userId
   useEffect(() => {
     getUserId().then(res => {
       setUserId(res);
     });
   }, []);
 
-  console.log('dssd', userId);
-
-  const [item, setItem] = useState(initialItemState);
   return (
     <View
       style={{

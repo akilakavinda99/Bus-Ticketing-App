@@ -17,6 +17,7 @@ import TicketScreen from './src/screens/TicketScreen';
 import TicketTypeScreen from './src/screens/TicketTypeScreen';
 import UserProfile from './src/screens/UserProfile';
 import RideNowScreen from './src/screens/RideNowScreen';
+import YourTripsScreen from './src/screens/YourTripsScreen';
 
 // Instanciate bottom tab.
 const Tab = createBottomTabNavigator();
@@ -33,6 +34,17 @@ function MyTabs() {
           title: 'Home',
           tabBarIcon: ({color, size}) => (
             <MCIcon name="home-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="YourTrip"
+        component={YourTripsScreen}
+        options={{
+          headerShown: false,
+          title: 'You Trips',
+          tabBarIcon: ({color, size}) => (
+            <MCIcon name="bus-stop" color={color} size={size} />
           ),
         }}
       />
