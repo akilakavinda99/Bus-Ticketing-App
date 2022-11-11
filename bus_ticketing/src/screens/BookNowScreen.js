@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
-import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
-import { Button, ProgressBar } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import React, {useState} from 'react';
+import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
+import {Button, ProgressBar} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 import DropDown from 'react-native-paper-dropdown';
 import BusCard from '../components/busCard/BusCard';
 import IntialComponent from '../components/initialComponent/IntialComponent';
@@ -15,8 +15,6 @@ import bookNowScreenStyle from './styles/BookNowScreenStyles';
 import reloadAccountStyle from './styles/ReloadAccountStyles';
 
 const BookNowScreen = () => {
-  const navigation = useNavigation();
-
   const [showEndDropDown, setShowEndDropDown] = useState(false);
   const [showStartDropDown, setShowStartDropDown] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -30,21 +28,40 @@ const BookNowScreen = () => {
 
   // create object from API object
   const api = new API();
+  // Search bus function
   const search = async () => {
     if (start === '' && end === '') {
-      setFormErrors({ start: 'Please select a start location', end: 'Please select an end location' });
+      setFormErrors({
+        start: 'Please select a start location',
+        end: 'Please select an end location',
+      });
       return;
     } else if (start === '') {
-      setFormErrors({ ...formErrors, start: 'Please select a start location', end: '' });
+      setFormErrors({
+        ...formErrors,
+        start: 'Please select a start location',
+        end: '',
+      });
       return;
     } else if (end === '') {
-      setFormErrors({ ...formErrors, end: 'Please select an end location', start: '' });
+      setFormErrors({
+        ...formErrors,
+        end: 'Please select an end location',
+        start: '',
+      });
       return;
     } else {
+      setFormErrors({
+        ...formErrors,
+        end: '',
+        start: '',
+      });
+
       const obj = {
         startLocation: start,
         destination: end,
       };
+
       setInitial(false);
       setLoading(true);
       try {
@@ -97,7 +114,6 @@ const BookNowScreen = () => {
           list={endLocationList}
         />
         <Text style={reloadAccountStyle.errorText}>{formErrors.end}</Text>
-
       </View>
 
       <Button
@@ -121,8 +137,10 @@ const BookNowScreen = () => {
           <View>
             {availableBuses.map(function (f, i) {
               f.startLocation = start;
+              console.log(f.arivalTimeOnStart);
               f.destination = end;
               return (
+                // <></>
                 <BusCard
                   key={i}
                   arrivalTime={f.arivalTimeOnStart}
