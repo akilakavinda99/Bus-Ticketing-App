@@ -46,6 +46,10 @@ const TicketScreen = ({navigation, route}) => {
             shadowOpacity: 0.5,
             shadowRadius: 5,
           }}> */}
+        <View
+          style={{
+            elevation: 10,
+          }}>
           <ImageBackground
             style={ticketScreenStyle.imageBg}
             imageStyle={{borderRadius: 15}}
@@ -92,6 +96,8 @@ const TicketScreen = ({navigation, route}) => {
               </View>
             </View>
           </ImageBackground>
+        </View>
+
         {/* </DropShadow> */}
       </ViewShot>
       <Button

@@ -54,13 +54,7 @@ const RideNowScreen = () => {
                 marginLeft: 85,
                 marginBottom: 30,
               }}>
-              <QRComponent
-                size={200}
-                value={JSON.stringify({
-                  userId: userId,
-                })}
-                getRef={null}
-              />
+              <QRComponent size={200} value={userId} getRef={null} />
             </View>
           </View>
         </>

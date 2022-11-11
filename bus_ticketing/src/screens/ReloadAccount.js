@@ -6,7 +6,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import reloadAccountStyle from './styles/ReloadAccountStyles';
 import {cardValidation} from './validations/ReloadAccountValidations';
 
-const ReloadAccount = () => {
+const ReloadAccount = ({route}) => {
+  const {ticket, fromPayment} = route.params;
   const [chkSaveCard, setChkSaveCard] = useState(false);
   const [chkConditions, setChkConditions] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
@@ -67,32 +68,40 @@ const ReloadAccount = () => {
           alignItems: 'center',
           marginTop: 10,
         }}>
-        <Text>Account Balance (LKR)</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'baseline',
-          }}>
-          <Text
-            style={{
-              fontSize: 30,
-              fontWeight: 'bold',
-            }}>
-            50
-          </Text>
-          <Text
-            style={{
-              fontSize: 15,
-              paddingBottom: 5,
-            }}>
-            .00
-          </Text>
-        </View>
+        {fromPayment ? (
+          <></>
+        ) : (
+          <>
+            <Text>Account Balance (LKR)</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'baseline',
+              }}>
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontWeight: 'bold',
+                }}>
+                50
+              </Text>
+              <Text
+                style={{
+                  fontSize: 15,
+                  paddingBottom: 5,
+                }}>
+                .00
+              </Text>
+            </View>
+          </>
+        )}
       </View>
       <View style={reloadAccountStyle.cardView}>
         <TextInput
           mode="outlined"
           activeOutlineColor="#9FA5AA"
+          value={fromPayment ? ticket.ticketPrice : ''}
+          editable={fromPayment ? false : true}
           label="Amount"
           outlineColor="#9FA5AA"
           keyboardType="numeric"

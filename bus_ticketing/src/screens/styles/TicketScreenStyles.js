@@ -7,6 +7,7 @@ const ticketScreenStyle = StyleSheet.create({
     marginTop: 30,
     borderRadius: 20,
     marginLeft: 85,
+    // elevation: 10,
   },
   fromTxt: {
     color: 'grey',
@@ -81,7 +82,7 @@ const ticketScreenStyle = StyleSheet.create({
     backgroundColor: 'orange',
   },
   sveBtn: {
-    marginTop: 20,
+    marginTop: 50,
     width: 280,
     marginLeft: 50,
   },

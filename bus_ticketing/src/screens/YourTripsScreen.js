@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
 import {useState} from 'react';
 import {ActivityIndicator, Text, View} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
+
 import API from '../redux/api/apiConnection';
 
 import HomeCard from '../components/homeCard/HomeCard';
@@ -10,6 +12,7 @@ import OngoingTripCard from '../components/ongoingTrip/OngoingTripCard';
 import NoOngoingTrip from '../components/ongoingTrip/NoOngoingTrip';
 
 const YourTripsScreen = () => {
+  const isFocused = useIsFocused();
   const [trips, setTrips] = useState(null);
   const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -20,7 +23,7 @@ const YourTripsScreen = () => {
       setUserId(res);
     });
   }, []);
-
+  console.log(userId);
   useEffect(() => {
     const getOngoingTrips = async () => {
       const api = new API();
@@ -40,7 +43,7 @@ const YourTripsScreen = () => {
       setLoading(true);
       getOngoingTrips();
     }
-  }, []);
+  }, [userId, isFocused]);
 
   return (
     <View>
@@ -57,7 +60,10 @@ const YourTripsScreen = () => {
           <NoOngoingTrip />
         </>
       ) : (
-        <OngoingTripCard busNumber="BUS-0011" />
+        <OngoingTripCard
+          busNumber={trips.busNumber}
+          start={trips.startStation}
+        />
       )}
       <View
         style={{

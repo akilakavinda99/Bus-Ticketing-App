@@ -55,7 +55,17 @@ const UserProfile = () => {
         <ProfileOptionsCard option="Payment Methods" icon="wallet" />
         <ProfileOptionsCard option="Settings" icon="settings" />
         <ProfileOptionsCard option="Change Password" icon="lock-closed" />
-        <ProfileOptionsCard option="Reload Account" icon="cash" />
+
+        <ProfileOptionsCard
+          option="Reload Account"
+          icon="cash"
+          navigateTo={() =>
+            navigation.navigate('ReloadAccount', {
+              ticket: 'dsd',
+              fromPayment: false,
+            })
+          }
+        />
 
         <TouchableOpacity onPress={navigateTO}>
           <ProfileOptionsCard

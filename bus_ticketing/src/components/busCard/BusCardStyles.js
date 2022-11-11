@@ -13,6 +13,7 @@ const busCardStyles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     marginBottom: 5,
+    elevation: 5,
   },
   row: {
     flexDirection: 'row',
@@ -46,7 +47,7 @@ const busCardStyles = StyleSheet.create({
     fontWeight: '500',
   },
   price: {
-    marginLeft: 50,
+    marginLeft: 40,
     marginTop: 30,
   },
 });

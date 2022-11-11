@@ -7,7 +7,9 @@ import userProfileStyles from '../../screens/styles/UserProfileStyles';
 
 const ProfileOptionsCard = props => {
   return (
-    <TouchableNativeFeedback style={{borderRadius: 20}}>
+    <TouchableNativeFeedback
+      style={{borderRadius: 20}}
+      onPress={props.navigateTo}>
       <View style={userProfileStyles.optionCard}>
         <View style={userProfileStyles.optionCardIcon}>
           <Icon name={props.icon} size={20} color="#000" />

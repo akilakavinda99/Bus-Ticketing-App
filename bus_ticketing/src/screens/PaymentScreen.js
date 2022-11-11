@@ -18,6 +18,10 @@ const PaymentScreen = ({navigation, route}) => {
         paymentMethod: 'account',
       });
     } else if (paymentMethod === 'credit') {
+      navigation.navigate('ReloadAccount', {
+        ticket: ticket,
+        fromPayment: true,
+      });
     }
   };
 
@@ -58,16 +62,16 @@ const PaymentScreen = ({navigation, route}) => {
             shadowOpacity: 0.5,
             shadowRadius: 5,
           }}> */}
-          <View style={paymentScreenStyle.rowView}>
-            <Button icon="credit-card" />
+        <View style={paymentScreenStyle.rowView}>
+          <Button icon="credit-card" />
 
-            <Text style={paymentScreenStyle.creditText}>Credit/Debit Card</Text>
-            <RadioButton
-              value="Card"
-              status={paymentMethod === 'credit' ? 'checked' : 'unchecked'}
-              onPress={() => setPaymentMethod('credit')}
-            />
-          </View>
+          <Text style={paymentScreenStyle.creditText}>Credit/Debit Card</Text>
+          <RadioButton
+            value="Card"
+            status={paymentMethod === 'credit' ? 'checked' : 'unchecked'}
+            onPress={() => setPaymentMethod('credit')}
+          />
+        </View>
         {/* </DropShadow> */}
         {/* <DropShadow
           style={{
@@ -79,16 +83,16 @@ const PaymentScreen = ({navigation, route}) => {
             shadowOpacity: 0.5,
             shadowRadius: 5,
           }}> */}
-          <View style={paymentScreenStyle.rowView}>
-            <Button icon="account" />
+        <View style={paymentScreenStyle.rowView}>
+          <Button icon="account" />
 
-            <Text style={paymentScreenStyle.creditText2}> Account</Text>
-            <RadioButton
-              value="account"
-              status={paymentMethod === 'account' ? 'checked' : 'unchecked'}
-              onPress={() => setPaymentMethod('account')}
-            />
-          </View>
+          <Text style={paymentScreenStyle.creditText2}> Account</Text>
+          <RadioButton
+            value="account"
+            status={paymentMethod === 'account' ? 'checked' : 'unchecked'}
+            onPress={() => setPaymentMethod('account')}
+          />
+        </View>
         {/* </DropShadow> */}
       </View>
       <Button

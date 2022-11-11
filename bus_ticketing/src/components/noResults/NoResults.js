@@ -5,6 +5,7 @@ const NoResults = () => {
   return (
     <View>
       <Text
+        testID="NoBusText"
         style={{
           marginTop: 80,
           textAlign: 'center',
