@@ -2,11 +2,11 @@ import {StyleSheet} from 'react-native';
 
 const loginStyle = StyleSheet.create({
   view: {
-    marginLeft: 23,
-    marginRight: 23,
+    marginLeft: 24,
+    marginRight: 24,
   },
   textInput: {
-    width: 347,
+    width: '100%',
     height: 47,
     backgroundColor: 'white',
     marginBottom: 10,
@@ -19,7 +19,7 @@ const loginStyle = StyleSheet.create({
   },
   googleButton: {
     width: 200,
-    marginLeft: 80,
+    alignSelf: 'center',
     borderRadius: 5,
   },
   hr: {
@@ -42,8 +42,7 @@ const loginStyle = StyleSheet.create({
   loginButton: {
     marginTop: 20,
     borderRadius: 10,
-    width: 300,
-    marginLeft: 28,
+    marginHorizontal: 28,
   },
   forgotPw: {
     marginTop: 28,

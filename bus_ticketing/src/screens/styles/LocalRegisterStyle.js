@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const localRegisterStyle = StyleSheet.create({
   textInput: {
-    width: 347,
+    width: '100%',
     height: 47,
     backgroundColor: 'white',
     marginBottom: 10,
@@ -16,8 +16,7 @@ const localRegisterStyle = StyleSheet.create({
   signupButton: {
     marginTop: 20,
     borderRadius: 10,
-    width: 300,
-    marginLeft: 45,
+    marginHorizontal: 45,
   },
   hr2: {
     marginTop: 25,
@@ -40,6 +39,7 @@ const localRegisterStyle = StyleSheet.create({
   },
   mainView: {
     marginLeft: 20,
+    marginRight: 20,
     marginTop: 50,
   },
 });
