@@ -15,7 +15,8 @@ const reloadAccountStyle = StyleSheet.create({
     marginBottom: 4,
   },
   errorText: {
-    color: 'firebrick',
+    // color: 'firebrick',
+    color: 'red',
     marginBottom: 10,
     marginLeft: 10,
     fontSize: 10,

@@ -1,6 +1,6 @@
-import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {useState} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -8,52 +8,59 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Button, TextInput} from 'react-native-paper';
-import {BoxPasswordStrengthDisplay} from 'react-native-password-strength-meter';
+import { Button, TextInput } from 'react-native-paper';
+import { BoxPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 import API from '../redux/api/apiConnection';
 import localRegisterStyle from './styles/LocalRegisterStyle';
+import reloadAccountStyle from './styles/ReloadAccountStyles';
+import { LocalRegisterValidation } from './validations/LocalRegisterValidation';
 
 const LocalRegisterScreen = () => {
   const navigation = useNavigation();
-  const [password, setPassword] = React.useState('');
-  const onChange = password => setPassword(password);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [nic, setNic] = useState('');
   const [loading, setLoading] = useState(false);
+  const [formErrors, setFormErrors] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userObject, setUserObject] = useState({});
 
   const registerUser = async () => {
     setLoading(true);
-    // create object from API object
-    const api = new API();
-    const userObject = {
-      name,
-      email,
-      nic,
-      password,
-    };
-
-    console.log('userOb', userObject);
-
-    api
-      .post('main/register', userObject)
-      .then(res => {
-        setLoading(false);
-        Alert.alert('Success', 'Registeration Success', [
-          {
-            text: 'Go To Login',
-            onPress: () => navigation.navigate('Login'),
-          },
-        ]);
-        console.log('Sesd', res);
-      })
-      .catch(err => {
-        setLoading(false);
-
-        console.log('errrr', err.response);
-      });
-    // console.log('Sginup rees', result.data);
+    setFormErrors(LocalRegisterValidation(userObject));
+    setIsSubmitting(true);
   };
+
+  const onChange = (name, value) => {
+    setUserObject({ ...userObject, [name]: value });
+  };
+
+  useEffect(() => {
+    const api = new API();
+    if (Object.keys(formErrors).length === 0 && isSubmitting) {
+      try {
+        api.post('main/register', userObject)
+          .then(res => {
+            setLoading(false);
+            Alert.alert('Success', 'Registeration Success', [
+              {
+                text: 'Go To Login',
+                onPress: () => navigation.navigate('Login'),
+              },
+            ]);
+          }).catch(err => {
+            console.log(err.response);
+            setLoading(false);
+          });
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+      setIsSubmitting(false);
+    } else {
+      setLoading(false);
+      setIsSubmitting(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formErrors, isSubmitting]);
+
   return (
     <View>
       {loading ? (
@@ -67,46 +74,59 @@ const LocalRegisterScreen = () => {
               activeOutlineColor="black"
               outlineColor="#9FA5AA"
               placeholder="Name"
+              value={userObject.name}
               style={localRegisterStyle.textInput}
-              onChangeText={value => setName(value)}
+              onChangeText={value => onChange('name', value)}
             />
+            <Text style={reloadAccountStyle.errorText}>{formErrors.name}</Text>
+
             <Text style={localRegisterStyle.labelStyle}>Email</Text>
             <TextInput
               mode="outlined"
               activeOutlineColor="black"
               outlineColor="#9FA5AA"
               placeholder="Email"
+              keyboardType="email-address"
+              value={userObject.email}
               style={localRegisterStyle.textInput}
-              onChangeText={value => setEmail(value)}
+              onChangeText={value => onChange('email', value)}
             />
+            <Text style={reloadAccountStyle.errorText}>{formErrors.email}</Text>
+
             <Text style={localRegisterStyle.labelStyle}>NIC</Text>
             <TextInput
               mode="outlined"
               activeOutlineColor="black"
               outlineColor="#9FA5AA"
               placeholder="NIC"
+              value={userObject.nic}
               style={localRegisterStyle.textInput}
-              onChangeText={value => setNic(value)}
+              onChangeText={value => onChange('nic', value)}
             />
+            <Text style={reloadAccountStyle.errorText}>{formErrors.nic}</Text>
+
             <Text style={localRegisterStyle.labelStyle}>Password</Text>
             <TextInput
               mode="outlined"
               activeOutlineColor="black"
               outlineColor="#9FA5AA"
               placeholder="Password"
+              value={userObject.password}
+              secureTextEntry={true}
               style={localRegisterStyle.textInput}
-              onChangeText={onChange}
+              onChangeText={value => onChange('password', value)}
             />
+            <Text style={reloadAccountStyle.errorText}>{formErrors.password}</Text>
+
+            <Button
+              onPress={registerUser}
+              mode="contained"
+              style={localRegisterStyle.signupButton}
+              color="#0096FF">
+              Signup
+            </Button>
           </View>
 
-          <BoxPasswordStrengthDisplay password={password} boxColor="#A9A9A9" />
-          <Button
-            onPress={registerUser}
-            mode="contained"
-            style={localRegisterStyle.signupButton}
-            color="#0096FF">
-            Signup
-          </Button>
           <View style={localRegisterStyle.hr2} />
           <Text style={localRegisterStyle.hveaccount}>
             Already have an account?

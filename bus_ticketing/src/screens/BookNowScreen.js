@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
-import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
-import {Button, ProgressBar} from 'react-native-paper';
-import {useNavigation} from '@react-navigation/native';
+/* eslint-disable react-native/no-inline-styles */
+import React, { useState } from 'react';
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
+import { Button, ProgressBar } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 import DropDown from 'react-native-paper-dropdown';
 import BusCard from '../components/busCard/BusCard';
 import IntialComponent from '../components/initialComponent/IntialComponent';
@@ -11,6 +12,7 @@ import startLocationList from '../constants/location.constants';
 import API from '../redux/api/apiConnection';
 import getTicketPrice from '../utils/getTicketPrice';
 import bookNowScreenStyle from './styles/BookNowScreenStyles';
+import reloadAccountStyle from './styles/ReloadAccountStyles';
 
 const BookNowScreen = () => {
   const navigation = useNavigation();
@@ -21,6 +23,7 @@ const BookNowScreen = () => {
   const [initial, setInitial] = useState(true);
   const [availableBuses, setAvailableBuses] = useState([]);
   const [ticketPrices, setTicketPrices] = useState([]);
+  const [formErrors, setFormErrors] = useState({});
 
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
@@ -28,23 +31,32 @@ const BookNowScreen = () => {
   // create object from API object
   const api = new API();
   const search = async () => {
-    const obj = {
-      startLocation: start,
-      destination: end,
-    };
-    setInitial(false);
-    setLoading(true);
-    try {
-      const result = await api.post('timetable/getBusByRoute', obj);
-      setTicketPrices(result.data.ticketPrice);
-      // console.log(result.data);
-      setAvailableBuses(result.data.busTimes);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
+    if (start === '' && end === '') {
+      setFormErrors({ start: 'Please select a start location', end: 'Please select an end location' });
+      return;
+    } else if (start === '') {
+      setFormErrors({ ...formErrors, start: 'Please select a start location', end: '' });
+      return;
+    } else if (end === '') {
+      setFormErrors({ ...formErrors, end: 'Please select an end location', start: '' });
+      return;
+    } else {
+      const obj = {
+        startLocation: start,
+        destination: end,
+      };
+      setInitial(false);
+      setLoading(true);
+      try {
+        const result = await api.post('timetable/getBusByRoute', obj);
+        setTicketPrices(result.data.ticketPrice);
+        // console.log(result.data);
+        setAvailableBuses(result.data.busTimes);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
     }
-
-    setLoading(false);
   };
 
   return (
@@ -66,11 +78,14 @@ const BookNowScreen = () => {
           setValue={setStart}
           list={startLocationList}
         />
+        <Text style={reloadAccountStyle.errorText}>{formErrors.start}</Text>
+
         <View
           style={{
             marginTop: 20,
           }}
         />
+
         <DropDown
           label={'To'}
           mode={'outlined'}
@@ -81,6 +96,8 @@ const BookNowScreen = () => {
           setValue={setEnd}
           list={endLocationList}
         />
+        <Text style={reloadAccountStyle.errorText}>{formErrors.end}</Text>
+
       </View>
 
       <Button
@@ -98,7 +115,7 @@ const BookNowScreen = () => {
           <View style={bookNowScreenStyle.activityStyle}>
             <ActivityIndicator size="large" />
           </View>
-        ) : availableBuses.length == 0 ? (
+        ) : availableBuses.length === 0 ? (
           <NoResults />
         ) : (
           <View>
