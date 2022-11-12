@@ -89,7 +89,7 @@ const ReloadAccount = ({ navigation, route }) => {
   // check if the card number, expiry and cvc are valid
   // check if the conditions checkbox is checked
   useEffect(() => {
-    if (Object.keys(cardErrors).length === 0 && isSubmit && chkConditions) {
+    if (Object.keys(cardErrors).length === 0 && isSubmit && chkConditions && fromPayment) {
       navigation.navigate('TicketType', {
         ticket: ticket,
         paymentMethod: 'account',
